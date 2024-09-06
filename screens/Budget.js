@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-export default function App() {
+export default function App( navigation) {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       {/* Header Section */}

@@ -17,20 +17,27 @@ function MainMenu({ navigation }) {
       </View>
       <Text style={styles.welcomeText}>WELCOME TO VELOX</Text>
       <View style={styles.gridContainer}>
+
         <TouchableOpacity style={styles.box}>
           <Text style={styles.boxText}>Account</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.box}>
-          <Text style={styles.boxText}>Budget</Text>
-        </TouchableOpacity>
+
+        <Pressable onPress={() => navigation.navigate('Budget')} style={styles.box}>
+          <TouchableOpacity>
+            <Text style={styles.boxText} onPress={() => navigation.navigate('Budget')}>Budget</Text>
+          </TouchableOpacity>
+        </Pressable>
+
         <Pressable onPress={() => navigation.navigate('Savings')} style={styles.box}>
           <TouchableOpacity>
               <Text style={styles.boxText} onPress={() => navigation.navigate('Savings')}>Savings</Text>
           </TouchableOpacity>
         </Pressable>
+
         <TouchableOpacity style={styles.box}>
           <Text style={styles.boxText}>Income</Text>
         </TouchableOpacity>
+
       </View>
       <View style={styles.footer}>
         <TouchableOpacity>
