@@ -62,7 +62,7 @@ function Savings({ navigation }) {
         renderItem={({ item }) => (
           <View style={styles.boxMonths}>
             <Text style={styles.textMonths}>{item}</Text>
-          </View>
+          </View>  
         )}
       />
       </View>
