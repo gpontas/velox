@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Centers everything vertically
     alignItems: 'center', // Centers everything horizontally
     paddingVertical: 40, // Extra padding to push content down
+    backgroundColor: '#F8F8F8',
   },
   header: {
     alignItems: 'center',
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 20, // Space between "BUDGET" text and balance box
   },
   balanceContainer: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F8F8F8',
     borderRadius: 20,
     padding: 30,
     width: '90%', // Responsive width

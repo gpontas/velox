@@ -2,6 +2,7 @@
   "name": "velox",
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
+  "backgroundColor": "#F8F8F8",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",

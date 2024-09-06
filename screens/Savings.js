@@ -1,9 +1,13 @@
 import {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, ScrollView, Pressable} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, ScrollView, Pressable, FlatList} from 'react-native';
 
-
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June', 
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
 
 function Savings({ navigation }) {
+  
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [selectedYear, setSelectedYear] = useState('2024');
@@ -21,13 +25,19 @@ function Savings({ navigation }) {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       
-      <View>
-        <Text>Savings</Text>
+      <View style={styles.savingsBox}>
+        <Text style={styles.savingsText}>SAVINGS</Text>
+        <Text style={styles.moneyEmoji}>⛃</Text>
+      </View>
+
+      <View style={styles.euroStyle}>
+        <Text style={styles.euroText}>1.234,56 $</Text>
       </View>
 
       <View>
-        <Text>1.234,56 $</Text>
+        <Text style={styles.yearStyle}>Year</Text>
       </View>
+
 
       <TouchableOpacity style={styles.box} onPress={toggleDropdown}>
         <Text style={styles.boxText}>{selectedYear}</Text>
@@ -44,48 +54,18 @@ function Savings({ navigation }) {
         </View>
       )}
 
-      <ScrollView>
-        <View>
-          <Text>January</Text>
-        </View>
-        <View>
-          <Text>February</Text>
-        </View>
-        <View>
-          <Text>March</Text>
-        </View>
-        <View>
-          <Text>April</Text>
-        </View>
-        <View>
-          <Text>May</Text>
-        </View>
-        <View>
-          <Pressable onPress={() => navigation.navigate('SavingsJune')}>
-            <Text>June</Text>
-          </Pressable>
-        </View>
-        <View>
-          <Text>July</Text>
-        </View>
-        <View>
-          <Text>August</Text>
-        </View>
-        <View>
-          <Text>September</Text>
-        </View>
-        <View>
-          <Text>October</Text>
-        </View>
-        <View>
-          <Text>November</Text>
-        </View>
-        <View>
-          <Text>December</Text>
-        </View>
-      </ScrollView>
-
-
+      <View style={styles.containerMonths}>
+      <FlatList 
+        data={months}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={1}  // Single column
+        renderItem={({ item }) => (
+          <View style={styles.boxMonths}>
+            <Text style={styles.textMonths}>{item}</Text>
+          </View>
+        )}
+      />
+      </View>
 
       <View style={styles.footer}>
         <TouchableOpacity>
@@ -116,7 +96,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F8F8',
-    paddingTop: STATUSBAR_HEIGHT,  // Adding padding to avoid overlapping with status bar
+  },
+  containerMonths: {
+    flex: 1,
+    padding: 16,
+    width: '90%',
+    marginLeft: 12,
+  },
+  boxMonths: {
+    flex: 1,
+    height: 75,
+    width: 300,
+    margin: 10,
+    backgroundColor: 'lightgreen',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+  },
+  textMonths: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   footer: {
     position: 'absolute',
@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
-  box: {
+  box: {  // Dropdown box
+    marginLeft: 30,
     width: 200,
     padding: 15,
     backgroundColor: 'white',
@@ -164,5 +165,43 @@ const styles = StyleSheet.create({
   },
   dropdownItemText: {
     fontSize: 18,
+  },
+  yearStyle: {
+    color: 'black',
+    fontSize: 16,
+    marginLeft: 25,
+    marginBottom: 5,
+  },
+  savingsBox: {
+    flexDirection: 'row',
+    height: 65,
+    width: 200,
+    backgroundColor: '#F8F8F8',
+    padding: 20,
+    margin: 10,
+    marginTop: 0,
+    borderRadius: 5,
+    alignItems: 'center',    
+  },
+  savingsText: {
+    marginTop: 3,
+    color: 'black',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  moneyEmoji: {
+    marginLeft: 14,
+
+    fontSize: 22,
+    alignSelf: 'top',
+  },
+  euroStyle: {
+    marginLeft: 25,
+    marginBottom: 20,
+  },
+  euroText: {
+    color: 'black',
+    fontSize: 26,
+    fontWeight: 'bold',
   },
 });
