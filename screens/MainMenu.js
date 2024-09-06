@@ -23,11 +23,11 @@ function MainMenu({ navigation }) {
         <TouchableOpacity style={styles.box}>
           <Text style={styles.boxText}>Budget</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.box}>
-          <Pressable onPress={() => navigation.navigate('Savings')}>
-            <Text style={styles.boxText}>Savings</Text>
-          </Pressable>
-        </TouchableOpacity>
+        <Pressable onPress={() => navigation.navigate('Savings')} style={styles.box}>
+          <TouchableOpacity>
+              <Text style={styles.boxText} onPress={() => navigation.navigate('Savings')}>Savings</Text>
+          </TouchableOpacity>
+        </Pressable>
         <TouchableOpacity style={styles.box}>
           <Text style={styles.boxText}>Income</Text>
         </TouchableOpacity>
