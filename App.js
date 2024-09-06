@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import MainMenu from './screens/MainMenu';
 import Savings from './screens/Savings';
 import Budget from './screens/Budget';
+import SavingsJune from './screens/SavingsJune';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
           <Stack.Screen name="MainMenu" component={MainMenu} options={{headerShown: false}}/>
           <Stack.Screen name="Savings" component={Savings} options={{headerTitle: ''}}/>
           <Stack.Screen name="Budget" component={Budget} options={{headerTitle: ''}}/>
+          <Stack.Screen name="SavingsJune" component={SavingsJune} options={{headerTitle: ''}}/>
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

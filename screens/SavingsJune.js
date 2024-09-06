@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
 const { height: screenHeight } = Dimensions.get('window'); // Get the height of the screen
 
-const SavingsScreen = () => {
+const SavingsScreen = ( navigation ) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>

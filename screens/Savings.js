@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, ScrollView, Pressable} from 'react-native';
 
 
 
@@ -20,7 +20,7 @@ function Savings({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
+      
       <View>
         <Text>Savings</Text>
       </View>
@@ -61,7 +61,9 @@ function Savings({ navigation }) {
           <Text>May</Text>
         </View>
         <View>
-          <Text>June</Text>
+          <Pressable onPress={() => navigation.navigate('SavingsJune')}>
+            <Text>June</Text>
+          </Pressable>
         </View>
         <View>
           <Text>July</Text>
