@@ -35,7 +35,7 @@ function MainMenu({ navigation }) {
         </Pressable>
 
         <Pressable onPress={() => navigation.navigate('IncomeFixed')} style={styles.box}>
-          <TouchableOpacity style={styles.box}>
+          <TouchableOpacity>
             <Text style={styles.boxText} onPress={() => navigation.navigate('IncomeFixed')}>Income</Text>
           </TouchableOpacity>
         </Pressable>

@@ -41,20 +41,20 @@ const IncomeScreen = ( {navigation} ) => {
 
       {selectedTab === 'Fixed' ? (
           <ScrollView contentContainerStyle={styles.incomeContainer}>
-          <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" />
-          <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€"/>
-          <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€"/>
-          <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%"/>
-          <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" />
-        </ScrollView>
+            <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" />
+            <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€"/>
+            <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€"/>
+            <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%"/>
+            <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" />
+          </ScrollView>
         ) : (
           <ScrollView contentContainerStyle={styles.incomeContainer}>
-        <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" />
-        <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€"/>
-        <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" />
-        <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€"/>
-        <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%"/>
-      </ScrollView>
+            <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" />
+            <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€"/>
+            <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" />
+            <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€"/>
+            <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%"/>
+          </ScrollView>
         )}
       {/* Income Items */}
       
@@ -139,32 +139,43 @@ const styles = StyleSheet.create({
   dateFilter: {
     marginTop: 10,
     paddingLeft: 20,
+    height: 70,
+    
   },
   monthItem: {
     marginRight: 15,
     paddingVertical: 10,
+    
+    
   },
   monthText: {
     color: '#888',
+    marginBottom: 10
+    
   },
   selectedMonth: {
     backgroundColor: '#FFF',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 15,
+    height: 40,
   },
   selectedMonthText: {
     color: '#333',
     fontWeight: 'bold',
+
+    
   },
   yearText: {
     color: '#888',
     paddingVertical: 10,
     paddingLeft: 10,
+    marginLeft: 10,
   },
   incomeContainer: {
     paddingHorizontal: 20,
     paddingBottom: 100, // for spacing above the bottom navigation
+
   },
   incomeItem: {
     backgroundColor: '#FFF',
@@ -173,6 +184,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     padding: 15,
+    marginTop: 15,
     marginBottom: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

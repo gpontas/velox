@@ -46,7 +46,7 @@ export default function App() {
               headerShadowVisible: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar style="auto"/>
     </View>
   );
 }
