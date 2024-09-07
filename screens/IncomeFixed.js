@@ -1,19 +1,31 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
+import React, { useState } from 'react'; 
 
-const IncomeScreen = () => {
+const IncomeScreen = ( {navigation} ) => {
+
+  const [selectedTab, setSelectedTab] = useState('Fixed');
+
+  const backgroundColor = selectedTab === 'Fixed' ? '#a1c4fd' : '#c2e9fb';
+
   return (
     <View style={styles.container}>
       {/* Header Section */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>INCOME</Text>
         <View style={styles.tabContainer}>
-          <TouchableOpacity style={styles.tabActive}>
-            <Text style={styles.tabTextActive}>Fixed</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tabInactive}>
-            <Text style={styles.tabTextInactive}>Dynamic</Text>
-          </TouchableOpacity>
+          <Pressable onPress={() => setSelectedTab('Fixed')} style={styles.tabActive}>
+            <TouchableOpacity>
+              <Text style={styles.tabTextActive} onPress={() => setSelectedTab('Fixed')}>Fixed</Text>
+            </TouchableOpacity>
+          </Pressable>
+
+          <Pressable onPress={() => setSelectedTab('Dynamic')} style={styles.tabInactive}>
+            <TouchableOpacity>
+              <Text style={styles.tabTextInactive} onPress={() => setSelectedTab('Dynamic')} >Dynamic</Text>
+            </TouchableOpacity>
+          </Pressable>
+        
+
         </View>
       </View>
 
@@ -27,14 +39,25 @@ const IncomeScreen = () => {
         <Text style={styles.yearText}>2024</Text>
       </ScrollView>
 
-      {/* Income Items */}
-      <ScrollView contentContainerStyle={styles.incomeContainer}>
-        <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" />
-        <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€"/>
-        <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€"/>
-        <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%"/>
-        <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" />
+      {selectedTab === 'Fixed' ? (
+          <ScrollView contentContainerStyle={styles.incomeContainer}>
+          <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" />
+          <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€"/>
+          <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€"/>
+          <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%"/>
+          <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" />
+        </ScrollView>
+        ) : (
+          <ScrollView contentContainerStyle={styles.incomeContainer}>
+        <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" />
+        <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€"/>
+        <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" />
+        <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€"/>
+        <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%"/>
       </ScrollView>
+        )}
+      {/* Income Items */}
+      
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>

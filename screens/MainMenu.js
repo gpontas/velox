@@ -34,12 +34,14 @@ function MainMenu({ navigation }) {
           </TouchableOpacity>
         </Pressable>
 
-        <TouchableOpacity style={styles.box}>
-          <Text style={styles.boxText}>Income</Text>
-        </TouchableOpacity>
+        <Pressable onPress={() => navigation.navigate('IncomeFixed')} style={styles.box}>
+          <TouchableOpacity style={styles.box}>
+            <Text style={styles.boxText} onPress={() => navigation.navigate('IncomeFixed')}>Income</Text>
+          </TouchableOpacity>
+        </Pressable>
 
       </View>
-      <View style={styles.footer}>
+      <View style={styles.footer}> 
         <TouchableOpacity>
           <Text style={styles.footerIcon}>🏦</Text>
         </TouchableOpacity>
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   box: {
-    width: '40%',
+    width: '45%',
     height: 100,
     backgroundColor: '#CFFFD3',
     justifyContent: 'center',
