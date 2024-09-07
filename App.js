@@ -6,6 +6,9 @@ import MainMenu from './screens/MainMenu';
 import Savings from './screens/Savings';
 import Budget from './screens/Budget';
 import SavingsJune from './screens/SavingsJune';
+import IncomeDynamic from './screens/IncomeDynamic';
+import DigitIncome from './screens/DigitIncome';
+import IncomeFixed from './screens/IncomeFixed';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +29,18 @@ export default function App() {
               {backgroundColor:'#F8F8F8'},
               headerShadowVisible: false}}/>
           <Stack.Screen name="SavingsJune" component={SavingsJune} options={
+              {headerTitle: '', headerStyle:
+              {backgroundColor:'#F8F8F8'},
+              headerShadowVisible: false}}/>
+          <Stack.Screen name="IncomeDynamic" component={IncomeDynamic} options={
+              {headerTitle: '', headerStyle:
+              {backgroundColor:'#F8F8F8'},
+              headerShadowVisible: false}}/>
+          <Stack.Screen name="DigitIncome" component={DigitIncome} options={
+              {headerTitle: '', headerStyle:
+              {backgroundColor:'#F8F8F8'},
+              headerShadowVisible: false}}/>
+          <Stack.Screen name="IncomeFixed" component={IncomeFixed} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
               headerShadowVisible: false}}/>
