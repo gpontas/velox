@@ -13,15 +13,15 @@ const IncomeScreen = ( {navigation} ) => {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>INCOME</Text>
         <View style={styles.tabContainer}>
-          <Pressable onPress={() => setSelectedTab('Fixed')} style={styles.tabActive}>
+          <Pressable onPress={() => setSelectedTab('Fixed')} style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}>
             <TouchableOpacity>
               <Text style={styles.tabTextActive} onPress={() => setSelectedTab('Fixed')}>Fixed</Text>
             </TouchableOpacity>
           </Pressable>
 
-          <Pressable onPress={() => setSelectedTab('Dynamic')} style={styles.tabInactive}>
+          <Pressable onPress={() => setSelectedTab('Dynamic')} style={selectedTab === 'Dynamic' ? styles.tabActive : styles.tabInactive}>
             <TouchableOpacity>
-              <Text style={styles.tabTextInactive} onPress={() => setSelectedTab('Dynamic')} >Dynamic</Text>
+              <Text style={styles.tabTextActive} onPress={() => setSelectedTab('Dynamic')} >Dynamic</Text>
             </TouchableOpacity>
           </Pressable>
         
