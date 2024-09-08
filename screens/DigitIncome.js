@@ -24,7 +24,7 @@ const SalaryScreen = () => {
 
         {/* Toggle Section */}
         <View style={styles.toggleSection}>
-          <Text style={styles.amountText}>80</Text>
+          <Text style={styles.amountText}>0</Text>
           <Text style={[styles.currencyText, !isPercentage ? styles.activeText : null]}>€</Text>
           <Switch
             value={isPercentage}
@@ -113,13 +113,16 @@ const styles = StyleSheet.create({
     marginTop: 20, // Reduced margin to fix toggle positioning
   },
   amountText: {
+    width: 70,
+    height: 50,
     fontSize: 32,
     fontWeight: 'bold',
     color: '#000',
     backgroundColor: '#F0EFFF',
-    padding: 10,
     borderRadius: 10,
     marginRight: 10,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   currencyText: {
     fontSize: 25,
