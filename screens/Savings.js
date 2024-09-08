@@ -2,8 +2,7 @@ import {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, ScrollView, Pressable, FlatList} from 'react-native';
 
 const months = [
-  'January', 'February', 'March', 'April', 'May', 'June', 
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'June', 'May', 'April', 'March', 'February', 'January'
 ];
 
 function Savings({ navigation }) {
@@ -54,18 +53,32 @@ function Savings({ navigation }) {
         </View>
       )}
 
-      <View style={styles.containerMonths}>
+    <View style={styles.containerMonths}>
       <FlatList 
         data={months}
         keyExtractor={(item, index) => index.toString()}
         numColumns={1}  // Single column
         renderItem={({ item }) => (
-          <View style={styles.boxMonths}>
-            <Text style={styles.textMonths}>{item}</Text>
-          </View>  
+          item === 'June' ? (
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('SavingsJune')}  
+              style={styles.boxMonths}  // Apply the style to the TouchableOpacity
+            >
+              <Text style={styles.textMonths}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.boxMonths}>
+              <Text style={styles.textMonths}>
+                {item}
+              </Text>
+            </View>
+          )
         )}
       />
-      </View>
+    </View>
+
 
       <View style={styles.footer}>
         <TouchableOpacity>
