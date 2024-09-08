@@ -41,19 +41,21 @@ const IncomeScreen = ( {navigation} ) => {
 
       {selectedTab === 'Fixed' ? (
           <ScrollView contentContainerStyle={styles.incomeContainer}>
-            <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" />
-            <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€"/>
-            <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€"/>
-            <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%"/>
-            <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" />
+            
+        
+            <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" navigation={navigation} />
+            <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€" navigation={navigation}/>
+            <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€" navigation={navigation}/>
+            <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%" navigation={navigation}/>
+            <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" navigation={navigation} />
           </ScrollView>
         ) : (
           <ScrollView contentContainerStyle={styles.incomeContainer}>
-            <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" />
-            <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€"/>
-            <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" />
-            <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€"/>
-            <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%"/>
+            <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" navigation={navigation}/>
+            <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€" navigation={navigation}/>
+            <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" navigation={navigation}/>
+            <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€" navigation={navigation}/>
+            <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%" navigation={navigation}/>
           </ScrollView>
         )}
       {/* Income Items */}
@@ -71,23 +73,27 @@ const IncomeScreen = ( {navigation} ) => {
   );
 };
 
-const IncomeItem = ({ label, date, amount, percentage, moneyicon }) => {
-  return (
-    <View style={styles.incomeItem}>
-      <View style={styles.incomeDetails}>
-        <Text style={styles.incomeLabel}>{label}</Text>
-        <Text style={styles.incomeDate}>{date}</Text>
-        <Text style={styles.incomeAmount}>{amount}</Text>
-      </View>
-      <View style={styles.incomeStatsContainer}>
-        <View style={styles.incomeStats}>
-          <Text style={styles.incomePercentage}>{percentage}{moneyicon}</Text>
-          <Text style={styles.incomeBudgetText}>in the budget</Text>
+const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation}) => {
+  return ( 
+    <Pressable onPress={() => navigation.navigate('DigitIncome')} style={styles.box}>
+
+      <View style={styles.incomeItem}>
+        <View style={styles.incomeDetails}>
+          <Text style={styles.incomeLabel}>{label}</Text>
+          <Text style={styles.incomeDate}>{date}</Text>
+          <Text style={styles.incomeAmount}>{amount}</Text>
         </View>
-        {/* Vertically Flipped Triangular Shape */}
-        <View style={styles.percentageTriangle}></View>
-      </View>
+        <View style={styles.incomeStatsContainer}>
+          <View style={styles.incomeStats}>
+            <Text style={styles.incomePercentage}>{percentage}{moneyicon}</Text>
+            <Text style={styles.incomeBudgetText}>in the budget</Text>
+          </View> 
+     
+          {/* Vertically Flipped Triangular Shape */}
+    <View style={styles.percentageTriangle}></View>
+        </View>
     </View>
+</Pressable>
   );
 };
 
