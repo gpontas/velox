@@ -75,7 +75,10 @@ const IncomeScreen = ( {navigation} ) => {
 
 const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation}) => {
   return ( 
-    <Pressable onPress={() => navigation.navigate('DigitIncome')} style={styles.box}>
+    <Pressable 
+      onPress={() => label === 'Salary' ? navigation.navigate('DigitIncome') : null} 
+      style={styles.box}
+>
 
       <View style={styles.incomeItem}>
         <View style={styles.incomeDetails}>
