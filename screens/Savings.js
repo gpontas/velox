@@ -65,7 +65,7 @@ function Savings({ navigation }) {
               style={styles.boxMonths}  // Apply the style to the TouchableOpacity
             >
               <Text style={styles.textMonths}>
-                June
+                {item}
               </Text>
             </TouchableOpacity>
           ) : (
