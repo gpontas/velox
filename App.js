@@ -22,28 +22,53 @@ export default function App() {
           <Stack.Screen name="Savings" component={Savings} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
-              headerShadowVisible: false}
+              headerShadowVisible: true,
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {color: '#808080'},
+              headerBackTitle: 'Back',
+              headerTintColor: '#808080'
+            }
               }/>
           <Stack.Screen name="Budget" component={Budget} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
-              headerShadowVisible: false}}/>
+              headerShadowVisible: true, 
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {color: '#808080'},
+              headerBackTitle: 'Back',
+              headerTintColor: '#808080'}}/>
           <Stack.Screen name="SavingsJune" component={SavingsJune} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
-              headerShadowVisible: false}}/>
+              headerShadowVisible: true, 
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {color: '#808080'},
+              headerBackTitle: 'Back',
+              headerTintColor: '#808080'}}/>
           <Stack.Screen name="IncomeDynamic" component={IncomeDynamic} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
-              headerShadowVisible: false}}/>
+              headerShadowVisible: true, 
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {color: '#808080'},
+              headerBackTitle: 'Back',
+              headerTintColor: '#808080'}}/>
           <Stack.Screen name="DigitIncome" component={DigitIncome} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
-              headerShadowVisible: false}}/>
+              headerShadowVisible: true, 
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {color: '#808080'},
+              headerBackTitle: 'Back',
+              headerTintColor: '#808080'}}/>
           <Stack.Screen name="IncomeFixed" component={IncomeFixed} options={
               {headerTitle: '', headerStyle:
               {backgroundColor:'#F8F8F8'},
-              headerShadowVisible: false}}/>
+              headerShadowVisible: true, 
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {color: '#808080'},
+              headerBackTitle: 'Back',
+              headerTintColor: '#808080'}}/>
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto"/>
