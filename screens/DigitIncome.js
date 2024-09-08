@@ -8,15 +8,9 @@ const SalaryScreen = () => {
     <View style={styles.container}>
       {/* Header Section */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
-          {/* Back button */}
-          <Text>{'<'}</Text>
-        </TouchableOpacity>
+        
         <Text style={styles.headerTitle}>INCOME</Text>
-        <TouchableOpacity style={styles.helpButton}>
-          {/* Question mark icon */}
-          <Text>?</Text>
-        </TouchableOpacity>
+        
       </View>
 
       {/* Main Content */}
@@ -61,24 +55,21 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#A6E1D9', // Green gradient background
-    paddingTop: 100, // Increased padding for more height
+    paddingTop: 50, // Increased padding for more height
     paddingBottom: 40, // Increase bottom padding for a larger header
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  backButton: {
-    padding: 10,
-  },
+ 
   headerTitle: {
+    marginLeft:125  ,
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
   },
-  helpButton: {
-    padding: 10,
-  },
+  
   content: {
     flex: 1,
     justifyContent: 'center', // Center vertically
