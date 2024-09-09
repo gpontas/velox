@@ -1,19 +1,76 @@
 import React from 'react';
-import { useState } from 'react';
-import { View, Text, StyleSheet, Switch, TextInput } from 'react-native';
+import { useState, useContext} from 'react';
+import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity } from 'react-native';
+import { GlobalContext } from '../GlobalState';
 
 const SalaryScreen = (  ) => {
 
   const [enteredNumber, setEnteredNumber] = useState('');
 
+  const [isPercentage, setIsPercentage] = useState(false);
+
+  const { savedValue, setSavedValue } = useContext(GlobalContext);
+
+  const salaryAmount = 1200;
+
+  const handleSwitch = (newValue) => {
+    setIsPercentage(newValue);
+  
+    if (newValue) {
+      // Switching to percentage mode, cap the input at 100%
+      let numericValue = parseFloat(enteredNumber);
+      if (!isNaN(numericValue) && numericValue > 100) {
+        setEnteredNumber('100');  // Cap the percentage at 100
+      }
+    }
+  };
+
   function numberInputHandler(inputText) {
-      setEnteredNumber(inputText); 
+    if (isPercentage) {
+      // For percentage input, ensure the value is between 0 and 100
+      let numericValue = parseFloat(inputText);
+  
+      if (isNaN(numericValue)) {
+        setEnteredNumber('');  // Clear input if not a valid number
+      } else if (numericValue <= 100) {
+        setEnteredNumber(inputText);
+      } else {
+        setEnteredNumber('100');  // Cap the percentage at 100
+      }
+    } else {
+      // For Euro input, allow only numbers and restrict to 2 decimal places
+      const formattedValue = inputText.replace(/[^0-9.]/g, ''); // Allow only numbers and dot
+      const decimalCheck = formattedValue.split('.');
+  
+      if (decimalCheck.length > 1 && decimalCheck[1].length > 2) {
+        return; // Prevent input with more than 2 decimal places
+      }
+  
+      // Cap the value to the salary amount
+      let numericValue = parseFloat(formattedValue);
+      if (!isNaN(numericValue) && numericValue > salaryAmount) {
+        setEnteredNumber(salaryAmount.toString()); // Cap at the salary amount
+      } else {
+        setEnteredNumber(formattedValue);
+      }
+    }
   }
+  
 
-
-
-
-  const [isPercentage, setIsPercentage] = React.useState(false);
+  const handleSubmit = () => {
+    if (isPercentage) {
+      // Convert percentage input into value of salary
+      const percentageValue = (parseFloat(enteredNumber) / 100) * salaryAmount;
+      setSavedValue(percentageValue);
+      console.log(`Saved Percentage Value: ${percentageValue} €`);
+    } else {
+      // Save the entered Euro value
+      setSavedValue(parseFloat(enteredNumber));
+      console.log(savedValue);
+      console.log(`Saved Euro Value: ${savedValue} €`);
+    }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -29,7 +86,7 @@ const SalaryScreen = (  ) => {
         {/* Salary Card */}
         <View style={styles.salaryCard}>
           <Text style={styles.salaryLabel}>Salary</Text>
-          <Text style={styles.salaryAmount}>+ 1257 €</Text>
+          <Text style={styles.salaryAmount}>+ {salaryAmount} €</Text>
           <Text style={styles.salaryDate}>Sun 09.06.2024</Text>
         </View>
 
@@ -45,13 +102,20 @@ const SalaryScreen = (  ) => {
           <Text style={[styles.currencyText, !isPercentage ? styles.activeText : null]}>€</Text>
           <Switch
             value={isPercentage}
-            onValueChange={setIsPercentage}
+            onValueChange={handleSwitch}
             thumbColor="#f4f3f4"
             trackColor={{ false: "#767577", true: "#007BFF" }}
           />
           <Text style={[styles.percentageText, isPercentage ? styles.activeText : null]}>%</Text>
         </View>
+
+        <TouchableOpacity style={styles.submitPress} onPress={handleSubmit}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
+        
       </View>
+
+
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
@@ -176,6 +240,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5F8F4',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  submitPress: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+  
   },
 });
 
