@@ -10,6 +10,7 @@ const SavingsScreen = ( navigation ) => {
         {/* Header Section */}
         <View style={styles.header}>
           <Text style={styles.headerText}>SAVINGS</Text>
+          <Text style={styles.moneyEmoji}>⛃</Text>
         </View>
 
         {/* Savings Box */}
@@ -72,15 +73,31 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Center content horizontally
   },
   header: {
-    padding: 20,
+    flexDirection: 'row',
+    height: 65,
+    width: 200,
+    backgroundColor: '#F8F8F8',
+    padding: 10,
+    margin: 10,
+    marginTop: 0,
+    borderRadius: 5,
     alignItems: 'center',
     marginBottom: 15,
     marginTop: -170,
   },
   headerText: {
-    fontSize: 28,
+    marginLeft: 0,
+    marginTop: 3,
+    color: 'black',
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#4c4c4c',
+  },
+  moneyEmoji: {
+    marginLeft: 14,
+    marginTop: 4,
+
+    fontSize: 42,
+    alignSelf: 'top',
   },
   savingsBox: {
     width: '90%',
