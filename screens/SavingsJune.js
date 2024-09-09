@@ -72,8 +72,10 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Center content horizontally
   },
   header: {
+    padding: 20,
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 15,
+    marginTop: -170,
   },
   headerText: {
     fontSize: 28,
