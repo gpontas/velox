@@ -5,14 +5,15 @@ const IncomeScreen = ( {navigation} ) => {
 
   const [selectedTab, setSelectedTab] = useState('Fixed');
 
-  const backgroundColor = selectedTab === 'Fixed' ? '#a1c4fd' : '#c2e9fb';
-
+  const headerBackgroundColor = selectedTab === 'Fixed' ? '#A6E1D9' : '#C8A3E1';
+  const triangleColor = selectedTab === 'Fixed' ? '#C8A3E1' : '#A6E1D9';
+  const tabColor= selectedTab=== 'Fixed' ? '#E5F8F4' : '#E6CFE6';
   return (
     <View style={styles.container}>
       {/* Header Section */}
-      <View style={styles.header}>
+      <View style={[styles.header, { backgroundColor: headerBackgroundColor }]}>
         <Text style={styles.headerTitle}>INCOME</Text>
-        <View style={styles.tabContainer}>
+        <View style={[styles.tabContainer,{backgroundColor: tabColor}]}>
           <Pressable onPress={() => setSelectedTab('Fixed')} style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}>
             <TouchableOpacity>
               <Text style={styles.tabTextActive} onPress={() => setSelectedTab('Fixed')}>Fixed</Text>
@@ -43,19 +44,19 @@ const IncomeScreen = ( {navigation} ) => {
           <ScrollView contentContainerStyle={styles.incomeContainer}>
             
         
-            <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" navigation={navigation} />
-            <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€" navigation={navigation}/>
-            <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€" navigation={navigation}/>
-            <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%" navigation={navigation}/>
-            <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" navigation={navigation} />
+            <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
           </ScrollView>
         ) : (
           <ScrollView contentContainerStyle={styles.incomeContainer}>
-            <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" navigation={navigation}/>
-            <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€" navigation={navigation}/>
-            <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" navigation={navigation}/>
-            <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€" navigation={navigation}/>
-            <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%" navigation={navigation}/>
+            <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
+            <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
           </ScrollView>
         )}
       {/* Income Items */}
@@ -73,12 +74,9 @@ const IncomeScreen = ( {navigation} ) => {
   );
 };
 
-const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation}) => {
+const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation, triangleColor}) => {
   return ( 
-    <Pressable 
-      onPress={() => label === 'Salary' ? navigation.navigate('DigitIncome') : null} 
-      style={styles.box}
->
+    <Pressable onPress={() => navigation.navigate("DigitIncome")} style={styles.box}>
 
       <View style={styles.incomeItem}>
         <View style={styles.incomeDetails}>
@@ -93,7 +91,7 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation}) 
           </View> 
      
           {/* Vertically Flipped Triangular Shape */}
-    <View style={styles.percentageTriangle}></View>
+          <View style={[styles.percentageTriangle, { borderTopColor: triangleColor }]}></View>
         </View>
     </View>
 </Pressable>
