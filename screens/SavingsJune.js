@@ -121,16 +121,16 @@ const styles = StyleSheet.create({
     width: '87%',
     // alignSelf: 'center',
     borderRadius: 25,
-    // padding: 30,
-    overflow: 'hidden', // Ensure content stays inside the border radius
+    padding: 0,
+    // overflow: 'hidden', // Ensure content stays inside the border radius
     marginBottom: 20,
     alignItems: 'center',
-    backgroundColor: '#DAF8E5', // Light green background for savings box
-    shadowColor: '#fff',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 15,
-    elevation: 8,
+    backgroundColor: '#F8F8F8', // Light green background for savings box
+    shadowColor: '#000',
+    shadowOffset: { width: 5, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   savingsBoxUpper: {
     // flex: 1,
@@ -139,6 +139,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: '#FFFFFF',
     paddingVertical: 25,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
   savingsBoxLower: {
     // flex: 1,
@@ -147,6 +149,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: '#4caf50', // Green background for the savings amount
     paddingVertical: 25,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
   month: {
     fontSize: 25,

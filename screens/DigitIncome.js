@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useContext} from 'react';
 import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity } from 'react-native';
 import { GlobalContext } from '../GlobalState';
+import {LinearGradient} from 'expo-linear-gradient';
 
 const SalaryScreen = (  ) => {
 
@@ -75,20 +76,41 @@ const SalaryScreen = (  ) => {
   return (
     <View style={styles.container}>
       {/* Header Section */}
-      <View style={styles.header}>
-        
+      <LinearGradient 
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
+        colors={['#00AC83', '#22E7B8']} 
+        style={styles.header}>
         <Text style={styles.headerTitle}>INCOME</Text>
-        
-      </View>
+      </LinearGradient>
 
       {/* Main Content */}
       <View style={styles.content}>
         {/* Salary Card */}
         <View style={styles.salaryCard}>
-          <Text style={styles.salaryLabel}>Salary</Text>
-          <Text style={styles.salaryAmount}>+ {salaryAmount} €</Text>
-          <Text style={styles.salaryDate}>Sun 09.06.2024</Text>
-        </View>
+          <LinearGradient
+              // gradient goes from left which is white to right which is light pink
+              start={{ x: 0, y: 0.5 }}
+              end={{ x: 1, y: 0.5 }}
+              colors={['#eceaea', '#fce4ec']}
+              style={styles.savingsBoxUpper}
+            >
+              <Text style={styles.salaryLabel}>Salary</Text>
+            </LinearGradient>
+
+            {/* Lower part with gradient green */}
+            <LinearGradient
+              // gradient goes from left which is light green to right which is even lighter green
+              start={{ x: 0, y: 0.5 }}
+              end={{ x: 1, y: 0.5 }}
+              colors={['#13dbab', '#A6CF71']} // gradient colors for the bottom part
+              style={styles.savingsBoxLower}
+              >
+              <Text style={styles.salaryAmount}>+ {salaryAmount} €</Text>
+            </LinearGradient>
+          </View>
+        {/*Date of the salary*/}
+        <Text style={styles.salaryDate}>Sun 09.06.2024</Text>
 
         {/* Toggle Section */}
         <View style={styles.toggleSection}>
@@ -145,7 +167,9 @@ const styles = StyleSheet.create({
   },
  
   headerTitle: {
-    marginLeft:125  ,
+    marginLeft:20,
+    marginTop: -20,
+    marginBottom: 10,
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
@@ -157,35 +181,58 @@ const styles = StyleSheet.create({
     alignItems: 'center',     // Center horizontally
   },
   salaryCard: {
+    width: '87%',
     backgroundColor: '#F8F8F8',
-    borderRadius: 15,
-    padding: 30, // Increased padding for a larger card
-    marginTop: -220,
-    marginBottom: 60, // Space between the card and toggle section
+    borderRadius: 25,
+    padding: 0, // Increased padding for a larger card
+    marginTop: -170,
+    marginBottom: 15, // Space between the card and toggle section
     alignItems: 'center',
     justifyContent: 'center',
-    width: '85%',  // Adjust width of the card
     elevation: 5, // Shadow for Android
     shadowColor: '#000', // Shadow for iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOffset: { width: 5, height: 8 },
+    shadowOpacity: 0.3,
     shadowRadius: 4,
   },
+  savingsBoxUpper: {
+    // flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#FFFFFF',
+    paddingVertical: 20,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25
+  },
+  savingsBoxLower: {
+    // flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#4caf50', // Green background for the savings amount
+    paddingVertical: 20,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25
+  },
   salaryLabel: {
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 10,
+    paddingTop: 10,
   },
   salaryAmount: {
-    fontSize: 36, // Increased font size for the amount
+    fontSize: 33, // Increased font size for the amount
     fontWeight: 'bold',
-    color: '#4CAF50', // Green for positive amount
+    color: '#fff', // Green for positive amount
     marginBottom: 10,
+    paddingTop: 10
   },
   salaryDate: {
     fontSize: 14,
     color: '#888',
+    marginBottom: 35
   },
   toggleSection: {
     flexDirection: 'row',
@@ -194,8 +241,8 @@ const styles = StyleSheet.create({
     marginTop: 20, // Reduced margin to fix toggle positioning
   },
   amountText: {
-    width: 70,
-    height: 50,
+    width: 100,
+    height: 60,
     fontSize: 32,
     fontWeight: 'bold',
     color: '#000',
@@ -206,14 +253,15 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   currencyText: {
-    fontSize: 25,
+    fontSize: 40,
     fontWeight: "bold",
     color: '#000',
     marginRight: 10,
+    marginLeft: 20
   },
   percentageText: {
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 40,
     color: '#000',
     marginLeft: 10,
   },
@@ -244,8 +292,8 @@ const styles = StyleSheet.create({
   submitPress: {
     backgroundColor: '#007BFF',
     padding: 10,
-    borderRadius: 5,
-  
+    borderRadius: 17,
+    marginTop: 30
   },
 });
 
