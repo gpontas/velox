@@ -1,7 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
+import { useState } from 'react';
+import { View, Text, StyleSheet, Switch, TextInput } from 'react-native';
 
-const SalaryScreen = () => {
+const SalaryScreen = (  ) => {
+
+  const [enteredNumber, setEnteredNumber] = useState('');
+
+  function numberInputHandler(inputText) {
+      setEnteredNumber(inputText); 
+  }
+
+
+
+
   const [isPercentage, setIsPercentage] = React.useState(false);
 
   return (
@@ -24,7 +35,13 @@ const SalaryScreen = () => {
 
         {/* Toggle Section */}
         <View style={styles.toggleSection}>
-          <Text style={styles.amountText}>0</Text>
+          <TextInput
+          style={styles.amountText} 
+          maxLength={!isPercentage ? 10 : 3}
+          keyboardType='number-pad'    
+          value={enteredNumber}
+          onChangeText={numberInputHandler}    
+          />
           <Text style={[styles.currencyText, !isPercentage ? styles.activeText : null]}>€</Text>
           <Switch
             value={isPercentage}
