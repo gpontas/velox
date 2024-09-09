@@ -5,6 +5,11 @@ const months = [
   'June', 'May', 'April', 'March', 'February', 'January'
 ];
 
+const amountText=[
+  "+ 597 €", "- 75 €", "+ 522 €", "+ 635 €", "+ 270 €", "+ 323 €"
+]
+
+
 function Savings({ navigation }) {
   
 
@@ -30,7 +35,7 @@ function Savings({ navigation }) {
       </View>
 
       <View style={styles.euroStyle}>
-        <Text style={styles.euroText}>1.234,56 $</Text>
+        <Text style={styles.euroText}>1.234,56 €</Text>
       </View>
 
       <View>
@@ -53,31 +58,44 @@ function Savings({ navigation }) {
         </View>
       )}
 
-    <View style={styles.containerMonths}>
-      <FlatList 
-        data={months}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={1}  // Single column
-        renderItem={({ item }) => (
-          item === 'June' ? (
-            <TouchableOpacity 
-              onPress={() => navigation.navigate('SavingsJune')}  
-              style={styles.boxMonths}  // Apply the style to the TouchableOpacity
-            >
-              <Text style={styles.textMonths}>
-                {item}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <View style={styles.boxMonths}>
-              <Text style={styles.textMonths}>
-                {item}
-              </Text>
-            </View>
-          )
-        )}
-      />
-    </View>
+<View style={styles.containerMonths}>
+  <FlatList 
+    data={months}
+    keyExtractor={(item, index) => index.toString()}
+    numColumns={1}  // Single column
+    renderItem={({ item, index}) => (
+      item === 'June' ? (
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('SavingsJune')}  
+          style={[
+            styles.boxMonths, 
+            { backgroundColor: '#CEFFD9' }  // Apply lightgreen background for June
+          ]}
+        >
+          <Text style={styles.textMonths}>
+            {item}</Text>
+          <Text style={styles.amountText}>{amountText[index]}</Text>
+            
+          
+
+
+        </TouchableOpacity>
+      ) : (
+        <View 
+          style={[
+            styles.boxMonths, 
+            { backgroundColor: item === 'May' ? '#FFC9C9' : '#CEFFD9' }  // Apply lightblue for May, lightgray for others
+          ]}
+        >
+          <Text style={styles.textMonths}>
+            {item}</Text>
+          <Text style={styles.amountText}>{amountText[index]}</Text>
+        </View>
+      )
+    )}
+  />
+</View>
+
 
 
       <View style={styles.footer}>
@@ -113,23 +131,35 @@ const styles = StyleSheet.create({
   containerMonths: {
     flex: 1,
     padding: 16,
-    width: '90%',
-    marginLeft: 12,
+    width: '100%',
+    marginLeft: 1,
   },
   boxMonths: {
     flex: 1,
     height: 75,
-    width: 300,
+    width: 320,
     margin: 10,
     backgroundColor: 'lightgreen',
+    flexDirection: "row",
     justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 15,
+    alignItems: "center",
+    borderRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   textMonths: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+  },
+
+  amountText:{
+    marginLeft: 120,
+    color:"black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
   footer: {
     position: 'absolute',
@@ -155,6 +185,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     zIndex: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    // Elevation for Android
+    elevation: 5,
   },
   boxText: {
     color: 'black',
@@ -190,22 +227,25 @@ const styles = StyleSheet.create({
     height: 65,
     width: 200,
     backgroundColor: '#F8F8F8',
-    padding: 20,
+    padding: 10,
     margin: 10,
     marginTop: 0,
     borderRadius: 5,
     alignItems: 'center',    
   },
+
   savingsText: {
+    marginLeft: 0,
     marginTop: 3,
     color: 'black',
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   moneyEmoji: {
     marginLeft: 14,
+    marginTop: 4,
 
-    fontSize: 22,
+    fontSize: 36,
     alignSelf: 'top',
   },
   euroStyle: {
@@ -214,7 +254,7 @@ const styles = StyleSheet.create({
   },
   euroText: {
     color: 'black',
-    fontSize: 26,
+    fontSize: 30,
     fontWeight: 'bold',
   },
 });
