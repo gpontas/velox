@@ -1,84 +1,136 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
-import React, { useState } from 'react'; 
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, PanResponder, Animated } from 'react-native';
+import React, { useState, useRef } from 'react';
 
-const IncomeScreen = ( {navigation} ) => {
+const IncomeScreen = ({ navigation }) => {
+  // State for Fixed and Dynamic incomes
+  const [fixedIncome, setFixedIncome] = useState([
+    { id: 1, label: "Salary", date: "Sun 09.06.2024", amount: "+ € 1257", percentage: "80", moneyicon: "%" },
+    { id: 2, label: "Tenant from Rome", date: "Fri 07.06.2024", amount: "+ € 750", percentage: "500", moneyicon: "€" },
+    { id: 3, label: "Tenant from Napoli", date: "Fri 07.06.2024", amount: "+ € 460", percentage: "460", moneyicon: "€" },
+    { id: 4, label: "Family Fund", date: "Wed 05.06.2024", amount: "+ € 600", percentage: "50", moneyicon: "%" },
+    { id: 5, label: "Freelancing Gig", date: "Tue 09.06.2024", amount: "+ € 600", percentage: "100", moneyicon: "%" }
+  ]);
+
+  const [dynamicIncome, setDynamicIncome] = useState([
+    { id: 6, label: "Aruta", date: "Wed 12.06.2024", amount: "+ 15,00 €", percentage: "100", moneyicon: "%" },
+    { id: 7, label: "Gustavo", date: "Fri 07.06.2024", amount: "+ 250,00 €", percentage: "200", moneyicon: "€" },
+    { id: 8, label: "Amazon reimb.", date: "Wed 05.06.2024", amount: "+ 68,64 €", percentage: "100", moneyicon: "%" },
+    { id: 9, label: "Asli", date: "Fri 07.06.2024", amount: "+ 26,70 €", percentage: "15", moneyicon: "€" },
+    { id: 10, label: "Mom", date: "Tue 09.06.2024", amount: "+ 100,00 €", percentage: "100", moneyicon: "%" }
+  ]);
 
   const [selectedTab, setSelectedTab] = useState('Fixed');
-
   const headerBackgroundColor = selectedTab === 'Fixed' ? '#A6E1D9' : '#C8A3E1';
   const triangleColor = selectedTab === 'Fixed' ? '#C8A3E1' : '#A6E1D9';
-  const tabColor= selectedTab=== 'Fixed' ? '#E5F8F4' : '#E6CFE6';
+  const moveboxColor = selectedTab === 'Fixed' ? '#C8A3E1' : '#A6E1D9';
+  const moveboxText = selectedTab === 'Fixed' ? 'Move to Dynamic' : 'Move to Fixed';
+
+ // Function to move an income from Fixed to Dynamic
+const moveToDynamic = (income) => {
+  setFixedIncome((prevFixed) => prevFixed.filter((item) => item.id !== income.id));
+  setDynamicIncome((prevDynamic) => [income, ...prevDynamic]); // Add to the beginning of the list
+};
+
+// Function to move an income from Dynamic to Fixed
+const moveToFixed = (income) => {
+  setDynamicIncome((prevDynamic) => prevDynamic.filter((item) => item.id !== income.id));
+  setFixedIncome((prevFixed) => [income, ...prevFixed]); // Add to the beginning of the list
+};
+
+
   return (
     <View style={styles.container}>
       {/* Header Section */}
       <View style={[styles.header, { backgroundColor: headerBackgroundColor }]}>
         <Text style={styles.headerTitle}>INCOME</Text>
-        <View style={[styles.tabContainer,{backgroundColor: tabColor}]}>
-          <Pressable onPress={() => setSelectedTab('Fixed')} style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}>
-            <TouchableOpacity>
-              <Text style={styles.tabTextActive} onPress={() => setSelectedTab('Fixed')}>Fixed</Text>
-            </TouchableOpacity>
-          </Pressable>
-
-          <Pressable onPress={() => setSelectedTab('Dynamic')} style={selectedTab === 'Dynamic' ? styles.tabActive : styles.tabInactive}>
-            <TouchableOpacity>
-              <Text style={styles.tabTextActive} onPress={() => setSelectedTab('Dynamic')} >Dynamic</Text>
-            </TouchableOpacity>
-          </Pressable>
-        
-
+        <View style={[styles.tabContainer, { backgroundColor: selectedTab === 'Fixed' ? '#E5F8F4' : '#E6CFE6' }]}>
+          <TouchableOpacity onPress={() => setSelectedTab('Fixed')} style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}>
+            <Text style={styles.tabTextActive}>Fixed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelectedTab('Dynamic')} style={selectedTab === 'Dynamic' ? styles.tabActive : styles.tabInactive}>
+            <Text style={styles.tabTextActive}>Dynamic</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
-      {/* Date Filter */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.dateFilter}>
-        {['FEB', 'MAR', 'APR', 'MAY', 'JUN'].map((month, index) => (
-          <TouchableOpacity key={index} style={month === 'JUN' ? styles.selectedMonth : styles.monthItem}>
-            <Text style={month === 'JUN' ? styles.selectedMonthText : styles.monthText}>{month}</Text>
-          </TouchableOpacity>
-        ))}
-        <Text style={styles.yearText}>2024</Text>
-      </ScrollView>
-
+      {/* Render Income List based on selected tab */}
       {selectedTab === 'Fixed' ? (
-          <ScrollView contentContainerStyle={styles.incomeContainer}>
-            
-        
-            <IncomeItem label="Salary" date="Sun 09.06.2024" amount="+ € 1257" percentage="80" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Tenant from Rome" date="Fri 07.06.2024" amount="+ € 750" percentage="500" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Tenant from Napoli" date="Fri 07.06.2024" amount="+ € 460" percentage="460" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Family Fund" date="Wed 05.06.2024" amount="+ € 600" percentage="50" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Freelancing Gig" date="Tue 09.06.2024" amount="+ € 600" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
-          </ScrollView>
-        ) : (
-          <ScrollView contentContainerStyle={styles.incomeContainer}>
-            <IncomeItem label="Aruta" date="Wed 12.06.2024" amount="+ 15,00 €" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Gustavo" date="Fri 07.06.2024" amount="+ 250,00 €" percentage="200" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Amazon reimb.." date="Wed 05.06.2024" amount="+ 68,64 €" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Asli" date="Fri 07.06.2024" amount="+ 26,70 €" percentage="15" moneyicon= "€" navigation={navigation} triangleColor={triangleColor}/>
-            <IncomeItem label="Mom" date="Tue 09.06.2024" amount="+ 100,00 €" percentage="100" moneyicon= "%" navigation={navigation} triangleColor={triangleColor}/>
-          </ScrollView>
-        )}
-      {/* Income Items */}
-      
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        {/* Add icons here */}
-        <View style={styles.navItem}></View>
-        <View style={styles.navItem}></View>
-        <View style={styles.navItem}></View>
-        <View style={styles.navItem}></View>
-      </View>
+        <ScrollView contentContainerStyle={styles.incomeContainer}>
+          {fixedIncome.map((income) => (
+            <IncomeItem
+              key={income.id}
+              {...income}
+              triangleColor={triangleColor}
+              moveboxColor={moveboxColor}
+              moveboxText={moveboxText}
+              moveItem={moveToDynamic} // Move to Dynamic
+              navigation={navigation}
+            />
+          ))}
+        </ScrollView>
+      ) : (
+        <ScrollView contentContainerStyle={styles.incomeContainer}>
+          {dynamicIncome.map((income) => (
+            <IncomeItem
+              key={income.id}
+              {...income}
+              triangleColor={triangleColor}
+              moveboxColor={moveboxColor}
+              moveboxText={moveboxText}
+              moveItem={moveToFixed} // Move to Fixed
+              navigation={navigation}
+            />
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
 
-const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation, triangleColor}) => {
-  return ( 
-    <Pressable onPress={() => navigation.navigate("DigitIncome")} style={styles.box}>
+const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, triangleColor, moveboxColor, moveboxText, moveItem, id }) => {
+  // State to handle triangle drag
+  const pan = useRef(new Animated.ValueXY()).current;
+  const [draggedFarEnough, setDraggedFarEnough] = useState(false);
 
-      <View style={styles.incomeItem}>
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderGrant: () => {
+      pan.setOffset({ x: pan.x._value, y: pan.y._value });
+    },
+    onPanResponderMove: Animated.event([null, { dx: pan.x }], { useNativeDriver: false }),
+    onPanResponderRelease: (e, gestureState) => {
+      if (gestureState.dx < -30) {
+        setDraggedFarEnough(true);
+
+        // Animate the triangle to the end of the box (left side)
+        Animated.spring(pan, {
+          toValue: { x: -325, y: 0 },
+          useNativeDriver: false,
+        }).start(() => {
+          moveItem({ id, label, date, amount, percentage, moneyicon }); // Move the item to the other list
+        });
+
+        // Hide the triangle and message after a delay
+        setTimeout(() => {
+          setDraggedFarEnough(false);
+          pan.setValue({ x: 0, y: 0 }); // Reset the triangle's position after it disappears
+        }, 1000);
+      } else {
+        // Reset the triangle position if not dragged far enough
+        setDraggedFarEnough(false);
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          useNativeDriver: false,
+        }).start();
+      }
+      pan.flattenOffset();
+    },
+  });
+
+  return (
+    <View style={styles.box}>
+      {/* TouchableOpacity for the income details and navigation */}
+      <TouchableOpacity onPress={() => navigation.navigate("DigitIncome")} style={styles.incomeItem}>
         <View style={styles.incomeDetails}>
           <Text style={styles.incomeLabel}>{label}</Text>
           <Text style={styles.incomeDate}>{date}</Text>
@@ -88,15 +140,29 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon , navigation, t
           <View style={styles.incomeStats}>
             <Text style={styles.incomePercentage}>{percentage}{moneyicon}</Text>
             <Text style={styles.incomeBudgetText}>in the budget</Text>
-          </View> 
-     
-          {/* Vertically Flipped Triangular Shape */}
-          <View style={[styles.percentageTriangle, { borderTopColor: triangleColor }]}></View>
+          </View>
         </View>
+      </TouchableOpacity>
+
+      {/* Draggable Triangle */}
+      <Animated.View {...panResponder.panHandlers} style={[styles.triangleContainer, { transform: [{ translateX: pan.x }] }]}>
+        <View style={[styles.percentageTriangle, { borderTopColor: triangleColor }]} />
+      </Animated.View>
+
+      {/* Optional "Move to Dynamic/Fixed" Message */}
+      {draggedFarEnough && (
+        <View style={[styles.moveToFixedBox, { backgroundColor: moveboxColor }]}>
+          <Text style={styles.moveToFixedText}>{moveboxText}</Text>
+        </View>
+      )}
     </View>
-</Pressable>
   );
 };
+
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -224,7 +290,7 @@ const styles = StyleSheet.create({
   },
   incomeStats: {
     alignItems: 'center',
-    marginRight: 20, // Space between text and the triangle
+    marginRight: 50, // Space between text and the triangle
   },
   incomePercentage: {
     fontSize: 20,
@@ -236,6 +302,7 @@ const styles = StyleSheet.create({
     color: '#888',
   },
   percentageTriangle: {
+    
     paddingVertical:18,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -255,6 +322,31 @@ const styles = StyleSheet.create({
     
     
   },
+
+  triangleContainer: {
+    position: 'absolute',
+    top: 0, // Adjust this to position the triangle vertically inside the income box
+    right:3 , // Position it to the right side of the box
+    top: 25,
+  },
+
+  moveToFixedBox:{
+    position: "absolute",
+    right:0,
+    left: 10,
+    paddingHorizontal: 80,
+    paddingVertical:35,
+    backgroundColor: "#C8A3E1",
+    marginTop:15,
+  },
+
+  moveToFixedText:{
+    
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFF",
+  },
+
   bottomNav: {
     position: 'absolute',
     bottom: 0,
