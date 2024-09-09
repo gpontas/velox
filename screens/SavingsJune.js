@@ -1,24 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { height: screenHeight } = Dimensions.get('window'); // Get the height of the screen
 
-const SavingsScreen = ( navigation ) => {
+const SavingsScreen = (navigation) => {
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {/* Header Section */}
+      <View style={styles.container}>
+        {/* Header Section - Not part of ScrollView */}
         <View style={styles.header}>
           <Text style={styles.headerText}>SAVINGS</Text>
           <Text style={styles.moneyEmoji}>⛃</Text>
         </View>
 
-        {/* Savings Box */}
+        {/* Savings Box - Not part of ScrollView */}
         <View style={styles.savingsBox}>
           {/* Upper part with gradient white and the month */}
           <LinearGradient
-            // gradient goes from left which is white to right which is light pink
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
             colors={['#eceaea', '#fce4ec']}
@@ -29,23 +27,22 @@ const SavingsScreen = ( navigation ) => {
 
           {/* Lower part with gradient green */}
           <LinearGradient
-            // gradient goes from left which is light green to right which is even lighter green
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
-            colors={['#13dbab', '#a6cf71']} // gradient colors for the bottom part
+            colors={['#13dbab', '#a6cf71']}
             style={styles.savingsBoxLower}
           >
             <Text style={styles.savingsAmount}>+ 597 €</Text>
           </LinearGradient>
         </View>
 
-        {/* Last Transactions Section */}
+        {/* Last Transactions Section - Not part of ScrollView */}
         <View style={styles.transactionsHeader}>
           <Text style={styles.transactionsTitle}>LAST TRANSACTIONS</Text>
         </View>
 
-        {/* Transactions List */}
-        <View style={styles.transactionsContainer}>
+        {/* ScrollView only for Transactions List */}
+        <ScrollView style={styles.transactionsContainer}>
           <TransactionItem
             label="from Salary"
             date="Sun 09.06.2024"
@@ -66,8 +63,26 @@ const SavingsScreen = ( navigation ) => {
             date="Wed 05.06.2024"
             amount="300.00 €"
           />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      
+
+
+      <View style={styles.footer}> 
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>ⓥ</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>➤ </Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>↯</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>⚙︎</Text>
+        </TouchableOpacity>
+      </View>
+    
+      
     </View>
   );
 };
@@ -102,7 +117,7 @@ const styles = StyleSheet.create({
     // borderRadius: 5,
     alignItems: 'center',
     marginBottom: 15,
-    marginTop: -160,
+    marginTop: 0,
   },
   headerText: {
     // marginLeft: 0,
@@ -124,6 +139,7 @@ const styles = StyleSheet.create({
     padding: 0,
     // overflow: 'hidden', // Ensure content stays inside the border radius
     marginBottom: 20,
+    alignSelf: "center",
     alignItems: 'center',
     backgroundColor: '#F8F8F8', // Light green background for savings box
     shadowColor: '#000',
@@ -206,6 +222,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
+  },
+  footer: {
+    alignItems:"center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: -20,
+  },
+  footerIcon: {
+    fontSize: 35,
   },
 });
 
