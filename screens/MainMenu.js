@@ -13,7 +13,7 @@ function MainMenu({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.profileIcon}>
           {/* Profile icon */}
-          <Text style={styles.iconText}>⚪</Text>
+          <Text style={styles.iconText}>⌂</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.welcomeText}>WELCOME TO VELOX</Text>
@@ -44,16 +44,16 @@ function MainMenu({ navigation }) {
       </View>
       <View style={styles.footer}> 
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>🏦</Text>
+          <Text style={styles.footerIcon}>ⓥ</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>✈️</Text>
+          <Text style={styles.footerIcon}>➤ </Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>📊</Text>
+          <Text style={styles.footerIcon}>↯</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>⚙️</Text>
+          <Text style={styles.footerIcon}>⚙︎</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   menuIcon: {
-    // Additional styling if needed
+    fontSize: 30
   },
   profileIcon: {
     // Additional styling if needed
   },
   iconText: {
-    fontSize: 24,
+    fontSize: 40,
   },
   welcomeText: {
     fontSize: 24,
@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   footerIcon: {
-    fontSize: 30,
+    fontSize: 35,
   },
 });
