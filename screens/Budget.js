@@ -1,15 +1,39 @@
 
 import React from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { GlobalContext } from '../GlobalState';
 
 export default function App( navigation) {
+
+  const { initBudget}  = useContext(GlobalContext);
+
+  const {setInitBudget} = useContext(GlobalContext);
+  
+  const { savedValue } = useContext(GlobalContext);
+
+  const { setSavedValue } = useContext(GlobalContext);
+
+  const [budget, setBudget] = useState(initBudget);
+
+  useEffect(() => {
+    if (savedValue !== null && savedValue !== undefined) {
+      // Use the previous budget value to apply the subtraction
+      setBudget(prevBudget => prevBudget - savedValue);
+      setInitBudget(prevBudget => prevBudget - savedValue);
+      setSavedValue(0);
+    }
+  }, [savedValue]);
+
+  const formattedBudget = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(budget);
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       {/* Header Section */}
       <View style={styles.header}>
         <Text style={styles.headerText}>BUDGET</Text>
         <View style={styles.balanceContainer}>
-          <Text style={styles.balance}>1.045,00 €</Text>
+          <Text style={styles.balance}>{formattedBudget}</Text>
         </View>
       </View>
 

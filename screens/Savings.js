@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, ScrollView, Pressable, FlatList} from 'react-native';
+import { GlobalContext } from '../GlobalState';
 
 const months = [
   'June', 'May', 'April', 'March', 'February', 'January'
@@ -11,6 +12,16 @@ const amountText=[
 
 
 function Savings({ navigation }) {
+
+  const { initSavings}  = useContext(GlobalContext);
+
+  const {setInitSavings} = useContext(GlobalContext);
+
+  const { savedValue } = useContext(GlobalContext);
+
+  const { setSavedValue } = useContext(GlobalContext);
+
+  const [savings, setSavings] = useState(initSavings);
   
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -25,6 +36,17 @@ function Savings({ navigation }) {
     setDropdownVisible(false); // Hide the dropdown after selection
   }
 
+  useEffect(() => {
+    if (savedValue !== null && savedValue !== undefined) {
+      // Use the previous budget value to apply the subtraction
+      setSavings(prevBudget => prevBudget + savedValue);
+      setInitSavings(prevBudget => prevBudget + savedValue);
+      setSavedValue(0);
+    }
+  }, [savedValue]);
+
+  const formattedSavings = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(savings);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -35,7 +57,7 @@ function Savings({ navigation }) {
       </View>
 
       <View style={styles.euroStyle}>
-        <Text style={styles.euroText}>1.234,56 €</Text>
+        <Text style={styles.euroText}>{formattedSavings}</Text>
       </View>
 
       <View>
