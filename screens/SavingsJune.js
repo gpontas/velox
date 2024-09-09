@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { height: screenHeight } = Dimensions.get('window'); // Get the height of the screen
 
@@ -15,8 +16,27 @@ const SavingsScreen = ( navigation ) => {
 
         {/* Savings Box */}
         <View style={styles.savingsBox}>
-          <Text style={styles.month}>June 2024</Text>
-          <Text style={styles.savingsAmount}>+ 597 €</Text>
+          {/* Upper part with gradient white and the month */}
+          <LinearGradient
+            // gradient goes from left which is white to right which is light pink
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            colors={['#eceaea', '#fce4ec']}
+            style={styles.savingsBoxUpper}
+          >
+            <Text style={styles.month}>June 2024</Text>
+          </LinearGradient>
+
+          {/* Lower part with gradient green */}
+          <LinearGradient
+            // gradient goes from left which is light green to right which is even lighter green
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            colors={['#13dbab', '#a6cf71']} // gradient colors for the bottom part
+            style={styles.savingsBoxLower}
+          >
+            <Text style={styles.savingsAmount}>+ 597 €</Text>
+          </LinearGradient>
         </View>
 
         {/* Last Transactions Section */}
@@ -76,18 +96,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 65,
     width: 200,
-    backgroundColor: '#F8F8F8',
+    // backgroundColor: '#F8F8F8',
     padding: 10,
     margin: 10,
-    marginTop: 0,
-    borderRadius: 5,
+    // borderRadius: 5,
     alignItems: 'center',
     marginBottom: 15,
-    marginTop: -170,
+    marginTop: -160,
   },
   headerText: {
-    marginLeft: 0,
-    marginTop: 3,
+    // marginLeft: 0,
+    // marginTop: 3,
     color: 'black',
     fontSize: 30,
     fontWeight: 'bold',
@@ -95,34 +114,51 @@ const styles = StyleSheet.create({
   moneyEmoji: {
     marginLeft: 14,
     marginTop: 4,
-
     fontSize: 42,
-    alignSelf: 'top',
+    // alignSelf: 'top',
   },
   savingsBox: {
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 15,
-    padding: 30,
+    width: '87%',
+    // alignSelf: 'center',
+    borderRadius: 25,
+    // padding: 30,
+    overflow: 'hidden', // Ensure content stays inside the border radius
     marginBottom: 20,
     alignItems: 'center',
     backgroundColor: '#DAF8E5', // Light green background for savings box
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowColor: '#fff',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
+    elevation: 8,
+  },
+  savingsBoxUpper: {
+    // flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#FFFFFF',
+    paddingVertical: 25,
+  },
+  savingsBoxLower: {
+    // flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#4caf50', // Green background for the savings amount
+    paddingVertical: 25,
   },
   month: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: '600',
     color: '#333',
-    marginBottom: 5,
+    fontWeight: 'bold',
+    // marginBottom: 5,
   },
   savingsAmount: {
-    fontSize: 36,
+    fontSize: 27,
     fontWeight: 'bold',
-    color: '#4caf50', // Green color for the amount
+    color: '#fff', // Green color for the amount
   },
   transactionsHeader: {
     alignItems: 'center',
