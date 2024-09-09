@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, Pressable } from 'react-native';
 
 function MainMenu({ navigation }) {
+  
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
