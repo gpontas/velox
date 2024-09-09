@@ -14,6 +14,7 @@ export default function App( navigation) {
       </View>
 
       {/* Categories Section */}
+      <Text style={styles.plusSign}>+</Text>
       <View style={styles.categoriesContainer}>
         <CategoryItem
           label="Rent"
@@ -89,8 +90,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
+  plusSign:{
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#333',
+    marginLeft: 250,
+    marginBottom: 10,
+    marginTop: 20,
+    padding: -10,
+  },
   categoriesContainer: {
-    marginTop: 30,
+    marginTop: 10,
     width: '90%', // Make categories container responsive and aligned
   },
   categoryItem: {
