@@ -174,11 +174,13 @@ const styles = StyleSheet.create({
   },
   categoryText:{
     left: -100,
-    bottom: -50,
+    bottom: 10,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333'
-    
+    color: '#333',
+    paddingTop: 50,
+    marginBottom: -50,
+    marginLeft: -30,
   },
   categoriesContainer: {
     marginTop: 10,
