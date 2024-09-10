@@ -42,59 +42,82 @@ const moveToFixed = (income) => {
 };
 
 
-  return (
-    <View style={styles.container}>
-      {/* Header Section */}
-      {/* Gradient Header using expo-linear-gradient */}
-      <LinearGradient
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-        colors={headerGradientColor}
-        style={styles.header}
-      >
-        <Text style={styles.headerTitle}>INCOME</Text>
-        <View style={[styles.tabContainer, { backgroundColor: selectedTab === 'Fixed' ? '#E5F8F4' : '#E6CFE6' }]}>
-          <TouchableOpacity onPress={() => setSelectedTab('Fixed')} style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}>
-            <Text style={styles.tabTextActive}>Fixed</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setSelectedTab('Dynamic')} style={selectedTab === 'Dynamic' ? styles.tabActive : styles.tabInactive}>
-            <Text style={styles.tabTextActive}>Dynamic</Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
+return (
+  <View style={styles.container}>
+    {/* Header Section */}
+    {/* Gradient Header using expo-linear-gradient */}
+    <LinearGradient
+      start={{ x: 0, y: 0.5 }}
+      end={{ x: 1, y: 0.5 }}
+      colors={headerGradientColor}
+      style={styles.header}
+    >
+      <Text style={styles.headerTitle}>INCOME</Text>
+      <View style={[styles.tabContainer, { backgroundColor: selectedTab === 'Fixed' ? '#E5F8F4' : '#E6CFE6' }]}>
+        <TouchableOpacity
+          onPress={() => setSelectedTab('Fixed')}
+          style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}
+        >
+          <Text style={styles.tabTextActive}>Fixed</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setSelectedTab('Dynamic')}
+          style={selectedTab === 'Dynamic' ? styles.tabActive : styles.tabInactive}
+        >
+          <Text style={styles.tabTextActive}>Dynamic</Text>
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
 
-      {/* Render Income List based on selected tab */}
-      {selectedTab === 'Fixed' ? (
-        <ScrollView contentContainerStyle={styles.incomeContainer}>
-          {fixedIncome.map((income) => (
-            <IncomeItem
-              key={income.id}
-              {...income}
-              triangleColor={triangleColor}
-              moveboxColor={moveboxColor}
-              moveboxText={moveboxText}
-              moveItem={moveToDynamic} // Move to Dynamic
-              navigation={navigation}
-            />
-          ))}
-        </ScrollView>
-      ) : (
-        <ScrollView contentContainerStyle={styles.incomeContainer}>
-          {dynamicIncome.map((income) => (
-            <IncomeItem
-              key={income.id}
-              {...income}
-              triangleColor={triangleColor}
-              moveboxColor={moveboxColor}
-              moveboxText={moveboxText}
-              moveItem={moveToFixed} // Move to Fixed
-              navigation={navigation}
-            />
-          ))}
-        </ScrollView>
-      )}
+    {/* Render Income List based on selected tab */}
+    {selectedTab === 'Fixed' ? (
+      <ScrollView contentContainerStyle={styles.incomeContainer}>
+        {fixedIncome.map((income) => (
+          <IncomeItem
+            key={income.id}
+            {...income}
+            triangleColor={triangleColor}
+            moveboxColor={moveboxColor}
+            moveboxText={moveboxText}
+            moveItem={moveToDynamic} // Move to Dynamic
+            navigation={navigation}
+          />
+        ))}
+      </ScrollView>
+    ) : (
+      <ScrollView contentContainerStyle={styles.incomeContainer}>
+        {dynamicIncome.map((income) => (
+          <IncomeItem
+            key={income.id}
+            {...income}
+            triangleColor={triangleColor}
+            moveboxColor={moveboxColor}
+            moveboxText={moveboxText}
+            moveItem={moveToFixed} // Move to Fixed
+            navigation={navigation}
+          />
+        ))}
+      </ScrollView>
+    )}
+
+    {/* Footer Section */}
+    <View style={styles.footer}>
+      <TouchableOpacity>
+        <Text style={styles.footerIcon}>ⓥ</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.footerIcon}>➤</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.footerIcon}>↯</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.footerIcon}>⚙︎</Text>
+      </TouchableOpacity>
     </View>
-  );
+  </View>
+);
+
 };
 
 const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, triangleColor, moveboxColor, moveboxText, moveItem, id }) => {
@@ -194,6 +217,7 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
   </Animated.View>
 )}
     </View>
+
   );
 };
 
@@ -204,11 +228,14 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
     backgroundColor: '#F8F8F8',
   },
   header: {
+    width: "100%",
     backgroundColor: '#A6E1D9',
+    top: 0,
     paddingTop: 50,
     paddingBottom: 20,
     paddingHorizontal: 20,
@@ -217,7 +244,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
   },
   headerTitle: {
-    fontSize: 28,
+    marginTop: -20,
+    marginBottom: 20,
+    marginLeft: -200,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#333',
   },
@@ -296,7 +326,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 15,
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -406,6 +436,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5F8F4',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  footer: {
+    alignItems:"center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: -30,
+  },
+  footerIcon: {
+    fontSize: 35,
   },
 });
 
