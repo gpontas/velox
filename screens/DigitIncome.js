@@ -10,9 +10,15 @@ const SalaryScreen = (  ) => {
 
   const [isPercentage, setIsPercentage] = useState(false);
 
-  const { savedValue, setSavedValue } = useContext(GlobalContext);
+  const { savedValueBudget, setSavedValueBudget } = useContext(GlobalContext);
 
-  const salaryAmount = 1200;
+  const { savedValueSavings, setSavedValueSavings } = useContext(GlobalContext);
+
+  const { salaryAmount, setSalaryAmount } = useContext(GlobalContext);
+
+  const {savedPrevBudget, setSavedPrevBudget} = useContext(GlobalContext);
+
+  const {savedPrevSavings, setSavedPrevSavings} = useContext(GlobalContext);
 
   const handleSwitch = (newValue) => {
     setIsPercentage(newValue);
@@ -62,13 +68,27 @@ const SalaryScreen = (  ) => {
     if (isPercentage) {
       // Convert percentage input into value of salary
       const percentageValue = (parseFloat(enteredNumber) / 100) * salaryAmount;
-      setSavedValue(percentageValue);
-      console.log(`Saved Percentage Value: ${percentageValue} €`);
+      const percentageValueSavings = (parseFloat(100 - enteredNumber) / 100) * salaryAmount;
+
+      setSavedValueBudget((savedPrevBudget - percentageValue));
+      
+      setSavedPrevBudget(percentageValue);
+
+      setSavedValueSavings((percentageValueSavings - savedPrevSavings));
+      
+      setSavedPrevSavings(percentageValueSavings);
+
+      
     } else {
-      // Save the entered Euro value
-      setSavedValue(parseFloat(enteredNumber));
-      console.log(savedValue);
-      console.log(`Saved Euro Value: ${savedValue} €`);
+
+      setSavedValueBudget( savedPrevBudget - enteredNumber)
+      
+      setSavedPrevBudget( enteredNumber)
+
+      setSavedValueSavings(salaryAmount-enteredNumber-savedPrevSavings)
+
+      setSavedPrevSavings(salaryAmount- enteredNumber)
+
     }
   };
   
@@ -106,7 +126,7 @@ const SalaryScreen = (  ) => {
               colors={['#13dbab', '#A6CF71']} // gradient colors for the bottom part
               style={styles.savingsBoxLower}
               >
-              <Text style={styles.salaryAmount}>+ {salaryAmount} €</Text>
+              <Text style={styles.salaryAmount}>+ 1.200 €</Text>
             </LinearGradient>
           </View>
         {/*Date of the salary*/}

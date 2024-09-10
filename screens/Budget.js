@@ -10,20 +10,22 @@ export default function App( navigation) {
 
   const {setInitBudget} = useContext(GlobalContext);
   
-  const { savedValue } = useContext(GlobalContext);
+  const { savedValueBudget } = useContext(GlobalContext);
 
-  const { setSavedValue } = useContext(GlobalContext);
+  const { setSavedValueBudget } = useContext(GlobalContext);
+
+  const {savedPrevBudget, setSavedPrevBudget} = useContext(GlobalContext);
 
   const [budget, setBudget] = useState(initBudget);
 
   useEffect(() => {
-    if (savedValue !== null && savedValue !== undefined) {
+    if (savedValueBudget !== null && savedValueBudget !== undefined) {
       // Use the previous budget value to apply the subtraction
-      setBudget(prevBudget => prevBudget - savedValue);
-      setInitBudget(prevBudget => prevBudget - savedValue);
-      setSavedValue(0);
+      setBudget(prevBudget => prevBudget - savedValueBudget);
+      setInitBudget(prevBudget => prevBudget - savedValueBudget);
+      setSavedValueBudget(0);
     }
-  }, [savedValue]);
+  }, [savedValueBudget]);
 
   const formattedBudget = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(budget);
 
