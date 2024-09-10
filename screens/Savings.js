@@ -122,18 +122,18 @@ function Savings({ navigation }) {
 
 
 
-      <View style={styles.footer}>
+      <View style={styles.footer}> 
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>🏦</Text>
+          <Text style={styles.footerIcon}>ⓥ</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>✈️</Text>
+          <Text style={styles.footerIcon}>➤ </Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>📊</Text>
+          <Text style={styles.footerIcon}>↯</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>⚙️</Text>
+          <Text style={styles.footerIcon}>⚙︎</Text>
         </TouchableOpacity>
       </View>
 
@@ -280,5 +280,19 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  footer: {
+    alignItems:"center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: -30,
+  },
+  footerIcon: {
+    fontSize: 35,
   },
 });
