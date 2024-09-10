@@ -28,6 +28,7 @@ export default function App(navigation) {
         </View>
   
         {/* Categories Section */}
+        <Text style={styles.categoryText}>CATEGORIES</Text>
         <Text style={styles.plusSign}>+</Text>
         <View style={styles.categoriesContainer}>
           <CategoryItem
@@ -168,6 +169,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 20,
     padding: -10,
+  },
+  categoryText:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333'
+    
   },
   categoriesContainer: {
     marginTop: 10,
