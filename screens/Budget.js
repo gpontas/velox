@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     color: '#333',
-    marginLeft: 250,
+    marginLeft: 300,
     marginBottom: 10,
     marginTop: 20,
     padding: -10,
@@ -173,8 +173,10 @@ const styles = StyleSheet.create({
   categoryText:{
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333'
-    
+    color: '#333',
+    paddingTop: 60,
+    marginBottom: -50,
+    marginLeft: -220,
   },
   categoriesContainer: {
     marginTop: 10,
