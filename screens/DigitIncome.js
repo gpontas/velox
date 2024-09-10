@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useContext, useEffect} from 'react';
-import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { GlobalContext } from '../GlobalState';
 import {LinearGradient} from 'expo-linear-gradient';
 
@@ -100,6 +100,7 @@ const SalaryScreen = (  ) => {
   
 
   return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={styles.container}>
       {/* Header Section */}
       <LinearGradient 
@@ -187,6 +188,7 @@ const SalaryScreen = (  ) => {
         </TouchableOpacity>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 
