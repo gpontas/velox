@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { GlobalContext } from '../GlobalState';
 
-export default function App(navigation) {
+export default function App({navigation}) {
   const { initBudget, setInitBudget, savedValueBudget, setSavedValueBudget, savedPrevBudget, setSavedPrevBudget } = useContext(GlobalContext);
   const [budget, setBudget] = useState(initBudget);
 
@@ -56,7 +56,7 @@ export default function App(navigation) {
   
       {/* Footer Section */}
       <View style={styles.footer}> 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('MainMenu')}>
           <Text style={styles.footerIcon}>ⓥ</Text>
         </TouchableOpacity>
         <TouchableOpacity>

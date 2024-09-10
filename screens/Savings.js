@@ -123,7 +123,7 @@ function Savings({ navigation }) {
 
 
       <View style={styles.footer}> 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('MainMenu')}>
           <Text style={styles.footerIcon}>ⓥ</Text>
         </TouchableOpacity>
         <TouchableOpacity>

@@ -4,13 +4,15 @@ import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity, Keyboard, 
 import { GlobalContext } from '../GlobalState';
 import {LinearGradient} from 'expo-linear-gradient';
 
-const SalaryScreen = (  ) => {
+const SalaryScreen = ( {navigation} ) => {
 
   const [enteredNumber, setEnteredNumber] = useState('');
 
   const [isPercentage, setIsPercentage] = useState(false);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const {enteredShow, setEnteredShow} = useContext(GlobalContext);
 
   const { savedValueBudget, setSavedValueBudget } = useContext(GlobalContext);
 
@@ -76,6 +78,8 @@ const SalaryScreen = (  ) => {
       const percentageValue = (parseFloat(enteredNumber) / 100) * salaryAmount;
       const percentageValueSavings = (parseFloat(100 - enteredNumber) / 100) * salaryAmount;
 
+      setEnteredShow(enteredNumber);
+
       setSavedValueBudget((savedPrevBudget - percentageValue));
       
       setSavedPrevBudget(percentageValue);
@@ -87,6 +91,7 @@ const SalaryScreen = (  ) => {
       
     } else {
 
+      setEnteredShow(((parseFloat(enteredNumber) / salaryAmount) * 100));
       setSavedValueBudget( savedPrevBudget - enteredNumber)
 
       setSavedPrevBudget( enteredNumber)
@@ -96,6 +101,8 @@ const SalaryScreen = (  ) => {
       setSavedPrevSavings(salaryAmount- enteredNumber)
 
     }
+  
+    return;
   };
   
 
@@ -162,7 +169,13 @@ const SalaryScreen = (  ) => {
 
         <TouchableOpacity 
         style={isButtonDisabled ? styles.submitPressDisabled : styles.submitPress}
-        onPress={handleSubmit}
+        onPress={async() => {
+        await handleSubmit(); 
+
+        console.log(savedValueBudget);
+          
+        navigation.navigate('IncomeFixed')}}
+
         disabled={isButtonDisabled}
         >
           <Text style={styles.submitText}>Submit</Text>
@@ -174,7 +187,7 @@ const SalaryScreen = (  ) => {
 
       {/* Bottom Navigation */}
       <View style={styles.footer}> 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('MainMenu')}>
           <Text style={styles.footerIcon}>ⓥ</Text>
         </TouchableOpacity>
         <TouchableOpacity>

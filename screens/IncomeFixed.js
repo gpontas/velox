@@ -1,11 +1,21 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, PanResponder, Animated } from 'react-native';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { GlobalContext } from '../GlobalState';
+
 
 const IncomeScreen = ({ navigation }) => {
+
+  const {salaryAmount, enteredShow} = useContext(GlobalContext);
+
+  const valueBudget = enteredShow !== 0 ? enteredShow : enteredShow;
+
+  console.log(valueBudget);  
+
+
   // State for Fixed and Dynamic incomes
   const [fixedIncome, setFixedIncome] = useState([
-    { id: 1, label: "Salary", date: "Sun 09.06.2024", amount: "+ € 1257", percentage: "100", moneyicon: "%" },
+    { id: 1, label: "Salary", date: "Sun 09.06.2024", amount: "+ € " + salaryAmount, percentage: valueBudget , moneyicon: "%" },
     { id: 2, label: "Tenant from Rome", date: "Fri 07.06.2024", amount: "+ € 750", percentage: "500", moneyicon: "€" },
     { id: 3, label: "Tenant from Napoli", date: "Fri 07.06.2024", amount: "+ € 460", percentage: "460", moneyicon: "€" },
     { id: 4, label: "Family Fund", date: "Wed 05.06.2024", amount: "+ € 600", percentage: "50", moneyicon: "%" },
@@ -102,7 +112,7 @@ return (
 
     {/* Footer Section */}
     <View style={styles.footer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('MainMenu')}>
         <Text style={styles.footerIcon}>ⓥ</Text>
       </TouchableOpacity>
       <TouchableOpacity>

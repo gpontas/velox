@@ -7,6 +7,8 @@ export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   // State to store the saved value (can be accessed from anywhere)
 
+  const [enteredShow, setEnteredShow] = useState(100);
+
   const [savedValueBudget, setSavedValueBudget] = useState(0);
 
   const [savedPrevBudget, setSavedPrevBudget] = useState(1200);
@@ -33,6 +35,8 @@ export const GlobalProvider = ({ children }) => {
       salaryAmount, setSalaryAmount,
       savedPrevBudget, setSavedPrevBudget,
       savedPrevSavings, setSavedPrevSavings,
+      enteredShow, setEnteredShow
+      
       }}>
         {children}
     </GlobalContext.Provider>
