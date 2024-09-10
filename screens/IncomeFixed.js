@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, PanResponder, Animated } from 'react-native';
 import React, { useState, useRef } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const IncomeScreen = ({ navigation }) => {
   // State for Fixed and Dynamic incomes
   const [fixedIncome, setFixedIncome] = useState([
-    { id: 1, label: "Salary", date: "Sun 09.06.2024", amount: "+ € 1257", percentage: "80", moneyicon: "%" },
+    { id: 1, label: "Salary", date: "Sun 09.06.2024", amount: "+ € 1257", percentage: "100", moneyicon: "%" },
     { id: 2, label: "Tenant from Rome", date: "Fri 07.06.2024", amount: "+ € 750", percentage: "500", moneyicon: "€" },
     { id: 3, label: "Tenant from Napoli", date: "Fri 07.06.2024", amount: "+ € 460", percentage: "460", moneyicon: "€" },
     { id: 4, label: "Family Fund", date: "Wed 05.06.2024", amount: "+ € 600", percentage: "50", moneyicon: "%" },
@@ -19,8 +20,11 @@ const IncomeScreen = ({ navigation }) => {
     { id: 10, label: "Mom", date: "Tue 09.06.2024", amount: "+ 100,00 €", percentage: "100", moneyicon: "%" }
   ]);
 
+  
   const [selectedTab, setSelectedTab] = useState('Fixed');
-  const headerBackgroundColor = selectedTab === 'Fixed' ? '#A6E1D9' : '#C8A3E1';
+  const headerGradientColor = selectedTab === 'Fixed' 
+  ? ['#8FDFCC', '#17C59B']
+  : ['#FEBBFB', '#B574D3'];
   const triangleColor = selectedTab === 'Fixed' ? '#C8A3E1' : '#A6E1D9';
   const moveboxColor = selectedTab === 'Fixed' ? '#C8A3E1' : '#A6E1D9';
   const moveboxText = selectedTab === 'Fixed' ? 'Move to Dynamic' : 'Move to Fixed';
@@ -41,7 +45,13 @@ const moveToFixed = (income) => {
   return (
     <View style={styles.container}>
       {/* Header Section */}
-      <View style={[styles.header, { backgroundColor: headerBackgroundColor }]}>
+      {/* Gradient Header using expo-linear-gradient */}
+      <LinearGradient
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
+        colors={headerGradientColor}
+        style={styles.header}
+      >
         <Text style={styles.headerTitle}>INCOME</Text>
         <View style={[styles.tabContainer, { backgroundColor: selectedTab === 'Fixed' ? '#E5F8F4' : '#E6CFE6' }]}>
           <TouchableOpacity onPress={() => setSelectedTab('Fixed')} style={selectedTab === 'Fixed' ? styles.tabActive : styles.tabInactive}>
@@ -51,7 +61,7 @@ const moveToFixed = (income) => {
             <Text style={styles.tabTextActive}>Dynamic</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </LinearGradient>
 
       {/* Render Income List based on selected tab */}
       {selectedTab === 'Fixed' ? (

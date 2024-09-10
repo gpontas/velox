@@ -87,16 +87,18 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   welcomeText: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: -40,
+    marginTop: -120
   },
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     paddingHorizontal: 16,
+    marginTop: -80
   },
   box: {
     width: '45%',
