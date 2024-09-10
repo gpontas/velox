@@ -113,14 +113,16 @@ const CategoryItem = ({ label, currentAmount, initialTotal }) => {
       <View style={styles.amountContainer}>
         <Text style={styles.categoryAmount}>{currentAmount} €</Text>
         <Text style={styles.slash}> / </Text>
-        <TextInput
-          style={styles.categoryTotal}
-          value={total}
-          onChangeText={handleTotalChange}
-          keyboardType="numeric"
-          underlineColorAndroid="transparent" // Ensure no underline in Android
-          editable={true}
-        />
+        <TouchableOpacity>
+          <TextInput
+            style={styles.categoryTotal}
+            value={total}
+            onChangeText={handleTotalChange}
+            keyboardType="numeric"
+            underlineColorAndroid="transparent"
+            editable={true}
+          />
+</TouchableOpacity>
         <Text style={styles.euroSymbol}> €</Text>
       </View>
     </View>
@@ -165,16 +167,20 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     color: '#333',
-    marginLeft: 250,
+    marginLeft: 280,
     marginBottom: 10,
     marginTop: 20,
     padding: -10,
   },
   categoryText:{
+    left: -100,
+    bottom: 10,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333'
-    
+    color: '#333',
+    paddingTop: 50,
+    marginBottom: -50,
+    marginLeft: -30,
   },
   categoriesContainer: {
     marginTop: 10,
@@ -209,13 +215,24 @@ const styles = StyleSheet.create({
   },
   categoryTotal: {
     fontSize: 16,
-    textAlign: 'right',
+    textAlign: 'center', // Center the text
     fontWeight: 'bold',
-    padding: 0, // No padding
+    paddingVertical: 6,  // Adds padding to make it look like a button
+    paddingHorizontal: 10, // Horizontal padding for button-like feel
     margin: 0, // No margin
-    width: 50, // Adjust width so it doesn't overflow
-    borderBottomWidth: 0, // Remove the underline
+    width: 60, // Adjust width to fit digits
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // White background to contrast
+    borderWidth: 1, // Adds a border to create the button effect
+    borderColor: '#ccc', // Light border color
+    borderRadius: 5, // Rounded corners for button effect
+    shadowColor: '#000', // Optional: Add shadow to make it pop
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2, // Elevation for Android shadow
+    
   },
+  
   euroSymbol: {
     fontSize: 16,
     fontWeight: 'bold',

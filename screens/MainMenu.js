@@ -41,6 +41,10 @@ function MainMenu({ navigation }) {
           </TouchableOpacity>
         </Pressable>
 
+        <TouchableOpacity onPress={() => navigation.navigate('IncomeFixed')} style={styles.recentlyViewedContainer}>
+  <Text style={styles.recentlyViewedText}>Recently Viewed</Text>
+</TouchableOpacity>
+
       </View>
       <View style={styles.footer}> 
         <TouchableOpacity>
@@ -91,14 +95,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: -40,
-    marginTop: -120
+    marginTop: 0,
   },
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     paddingHorizontal: 16,
-    marginTop: -80
+    marginTop: 50,
   },
   box: {
     width: '45%',
@@ -108,6 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
     borderRadius: 10,
+  
   },
   boxText: {
     fontSize: 18,
@@ -124,4 +129,23 @@ const styles = StyleSheet.create({
   footerIcon: {
     fontSize: 35,
   },
+  recentlyViewedContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+    marginTop: 120,
+    borderWidth: 5, // Border to match the design
+    borderColor: '#9C27B0', // Light purple color
+    borderRadius: 10, // Rounded corners
+    paddingVertical: 10, // Vertical padding for touchable area
+    paddingHorizontal: 20, // Horizontal padding for touchable area
+    marginVertical: 20, // Adds some space between this and other elements
+    alignSelf: 'center', // Align center in parent container
+  },
+  recentlyViewedText: {
+    color: '#9C27B0', // Purple text color
+    fontSize: 16,
+    fontWeight: 'bold',
+  }
+  
 });
