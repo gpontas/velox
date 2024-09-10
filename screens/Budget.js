@@ -1,26 +1,14 @@
 
-import React from 'react';
-import { useState, useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { GlobalContext } from '../GlobalState';
 
-export default function App( navigation) {
-
-  const { initBudget}  = useContext(GlobalContext);
-
-  const {setInitBudget} = useContext(GlobalContext);
-  
-  const { savedValueBudget } = useContext(GlobalContext);
-
-  const { setSavedValueBudget } = useContext(GlobalContext);
-
-  const {savedPrevBudget, setSavedPrevBudget} = useContext(GlobalContext);
-
+export default function App(navigation) {
+  const { initBudget, setInitBudget, savedValueBudget, setSavedValueBudget, savedPrevBudget, setSavedPrevBudget } = useContext(GlobalContext);
   const [budget, setBudget] = useState(initBudget);
 
   useEffect(() => {
     if (savedValueBudget !== null && savedValueBudget !== undefined) {
-      // Use the previous budget value to apply the subtraction
       setBudget(prevBudget => prevBudget - savedValueBudget);
       setInitBudget(prevBudget => prevBudget - savedValueBudget);
       setSavedValueBudget(0);
@@ -45,31 +33,31 @@ export default function App( navigation) {
         <View style={styles.categoriesContainer}>
           <CategoryItem
             label="Rent"
-            amount="700"
+            initialAmount="700"
             total="700"
-            backgroundColor="#FFF59D" // Light Yellow
-            borderColor="#FBC02D" // Darker Yellow
+            backgroundColor="#FFF59D"
+            borderColor="#FBC02D"
           />
           <CategoryItem
             label="Food"
-            amount="224,68"
+            initialAmount="224.68"
             total="400"
-            backgroundColor="#C8E6C9" // Light Green
-            borderColor="#388E3C" // Darker Green
+            backgroundColor="#C8E6C9"
+            borderColor="#388E3C"
           />
           <CategoryItem
             label="Shopping"
-            amount="554,90"
+            initialAmount="554.90"
             total="350"
-            backgroundColor="#FFCDD2" // Light Red
-            borderColor="#D32F2F" // Darker Red
+            backgroundColor="#FFCDD2"
+            borderColor="#D32F2F"
           />
           <CategoryItem
             label="Travel"
-            amount="86"
+            initialAmount="86"
             total="460"
-            backgroundColor="#C8E6C9" // Light Green
-            borderColor="#388E3C" // Darker Green
+            backgroundColor="#C8E6C9"
+            borderColor="#388E3C"
           />
         </View>
       </ScrollView>
@@ -93,12 +81,29 @@ export default function App( navigation) {
   );
 }  
 
-const CategoryItem = ({ label, amount, total, backgroundColor, borderColor }) => (
-  <View style={[styles.categoryItem, { backgroundColor, borderColor }]}>
-    <Text style={styles.categoryLabel}>{label}</Text>
-    <Text style={styles.categoryAmount}>{`${amount} / ${total} €`}</Text>
-  </View>
-);
+const CategoryItem = ({ label, initialAmount, total, backgroundColor, borderColor }) => {
+  const [amount, setAmount] = useState(initialAmount);
+
+  const handleAmountChange = (newAmount) => {
+    setAmount(newAmount);
+  };
+
+  return (
+    <View style={[styles.categoryItem, { backgroundColor, borderColor }]}>
+      <Text style={styles.categoryLabel}>{label}</Text>
+      <TextInput
+        style={styles.categoryAmount}
+        value={amount}
+        onChangeText={handleAmountChange}
+        keyboardType="numeric" // Ensure the user can only input numeric values
+      />
+      <Text style={styles.categoryTotal}> / {total} €</Text>
+    </View>
+  );
+};
+
+
+
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
