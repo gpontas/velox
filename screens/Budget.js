@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { GlobalContext } from '../GlobalState';
@@ -29,36 +28,27 @@ export default function App(navigation) {
         </View>
   
         {/* Categories Section */}
-        <Text style={styles.categoriesText}>CATEGORIES</Text>
         <Text style={styles.plusSign}>+</Text>
         <View style={styles.categoriesContainer}>
           <CategoryItem
             label="Rent"
-            initialAmount="700"
-            total="700"
-            backgroundColor="#FFF59D"
-            borderColor="#FBC02D"
+            currentAmount="700"
+            initialTotal="700"
           />
           <CategoryItem
             label="Food"
-            initialAmount="224.68"
-            total="400"
-            backgroundColor="#C8E6C9"
-            borderColor="#388E3C"
+            currentAmount="224.68"
+            initialTotal="400"
           />
           <CategoryItem
             label="Shopping"
-            initialAmount="554.90"
-            total="350"
-            backgroundColor="#FFCDD2"
-            borderColor="#D32F2F"
+            currentAmount="554.90"
+            initialTotal="350"
           />
           <CategoryItem
             label="Travel"
-            initialAmount="86"
-            total="460"
-            backgroundColor="#C8E6C9"
-            borderColor="#388E3C"
+            currentAmount="86"
+            initialTotal="460"
           />
         </View>
       </ScrollView>
@@ -82,52 +72,82 @@ export default function App(navigation) {
   );
 }  
 
-const CategoryItem = ({ label, initialAmount, total, backgroundColor, borderColor }) => {
-  const [amount, setAmount] = useState(initialAmount);
+const CategoryItem = ({ label, currentAmount, initialTotal }) => {
+  const [total, setTotal] = useState(initialTotal);
+  const [boxColor, setBoxColor] = useState('#FFF59D'); // Default yellow background
+  const [borderColor, setBorderColor] = useState('#FBC02D'); // Darker yellow border
 
-  const handleAmountChange = (newAmount) => {
-    setAmount(newAmount);
+  // Function to update the box and border colors
+  const updateBoxAndBorderColor = (numericTotal, numericCurrentAmount) => {
+    if (numericTotal > numericCurrentAmount) {
+      setBoxColor('#C8E6C9'); // Light green
+      setBorderColor('#388E3C'); // Dark green
+    } else if (numericTotal < numericCurrentAmount) {
+      setBoxColor('#FFCDD2'); // Light red
+      setBorderColor('#D32F2F'); // Dark red
+    } else {
+      setBoxColor('#FFF59D'); // Light yellow
+      setBorderColor('#FBC02D'); // Dark yellow
+    }
+  };
+
+  // Set initial colors based on current amount and total
+  useEffect(() => {
+    const numericTotal = parseFloat(initialTotal);
+    const numericCurrentAmount = parseFloat(currentAmount);
+    updateBoxAndBorderColor(numericTotal, numericCurrentAmount);
+  }, [currentAmount, initialTotal]);
+
+  // Handle text input change and update colors
+  const handleTotalChange = (newTotal) => {
+    setTotal(newTotal);
+    const numericTotal = parseFloat(newTotal);
+    const numericCurrentAmount = parseFloat(currentAmount);
+    updateBoxAndBorderColor(numericTotal, numericCurrentAmount);
   };
 
   return (
-    <View style={[styles.categoryItem, { backgroundColor, borderColor }]}>
+    <View style={[styles.categoryItem, { backgroundColor: boxColor, borderColor: borderColor }]}>
       <Text style={styles.categoryLabel}>{label}</Text>
-      <TextInput
-        style={styles.categoryAmount}
-        value={amount}
-        onChangeText={handleAmountChange}
-        keyboardType="numeric" // Ensure the user can only input numeric values
-      />
-      <Text style={styles.categoryTotal}> / {total} €</Text>
+      <View style={styles.amountContainer}>
+        <Text style={styles.categoryAmount}>{currentAmount} €</Text>
+        <Text style={styles.slash}> / </Text>
+        <TextInput
+          style={styles.categoryTotal}
+          value={total}
+          onChangeText={handleTotalChange}
+          keyboardType="numeric"
+          underlineColorAndroid="transparent" // Ensure no underline in Android
+          editable={true}
+        />
+        <Text style={styles.euroSymbol}> €</Text>
+      </View>
     </View>
   );
 };
 
-
-
-
 const styles = StyleSheet.create({
   scrollViewContainer: {
     flexGrow: 1,
-    justifyContent: 'center', // Centers everything vertically
-    alignItems: 'center', // Centers everything horizontally
-    paddingVertical: 40, // Extra padding to push content down
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
     backgroundColor: '#F8F8F8',
   },
   header: {
     alignItems: 'center',
-    marginBottom: 40, // Space between header and the balance box
+    marginBottom: 40,
   },
   headerText: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20, // Space between "BUDGET" text and balance box
+    marginBottom: 20,
   },
   balanceContainer: {
     backgroundColor: '#F8F8F8',
     borderRadius: 20,
     padding: 30,
-    width: '90%', // Responsive width
+    width: '90%',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -140,49 +160,62 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
-  plusSign:{
+  plusSign: {
     fontSize: 26,
     fontWeight: 'bold',
     color: '#333',
     marginLeft: 250,
-    marginRight: -45,
     marginBottom: 10,
     marginTop: 20,
     padding: -10,
   },
-  categoriesText:{
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: -50,
-    marginLeft: -200,
-    marginTop: 25,
-  },
   categoriesContainer: {
     marginTop: 10,
-    width: '90%', // Make categories container responsive and aligned
+    width: '90%',
   },
   categoryItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // Aligns the label to the left and amount to the right
+    justifyContent: 'space-between',
     padding: 20,
     borderRadius: 10,
-    marginBottom: 20, // Equal space between category items
-    borderWidth: 2, // For the contour line
+    marginBottom: 20,
+    borderWidth: 2, // Contour thickness
   },
   categoryLabel: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'left',
+  },
+  amountContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   categoryAmount: {
     fontSize: 16,
     textAlign: 'right',
     fontWeight: 'bold',
   },
+  slash: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginHorizontal: 4,
+  },
+  categoryTotal: {
+    fontSize: 16,
+    textAlign: 'right',
+    fontWeight: 'bold',
+    padding: 0, // No padding
+    margin: 0, // No margin
+    width: 50, // Adjust width so it doesn't overflow
+    borderBottomWidth: 0, // Remove the underline
+  },
+  euroSymbol: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 4,
+  },
   footer: {
-    alignItems:"center",
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 16,
@@ -196,4 +229,3 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
 });
-
