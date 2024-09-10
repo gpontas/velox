@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useContext} from 'react';
+import { useState, useContext, useEffect} from 'react';
 import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity } from 'react-native';
 import { GlobalContext } from '../GlobalState';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -9,6 +9,8 @@ const SalaryScreen = (  ) => {
   const [enteredNumber, setEnteredNumber] = useState('');
 
   const [isPercentage, setIsPercentage] = useState(false);
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const { savedValueBudget, setSavedValueBudget } = useContext(GlobalContext);
 
@@ -63,6 +65,10 @@ const SalaryScreen = (  ) => {
     }
   }
   
+  useEffect(() => {
+    // Enable button only if enteredNumber is not empty
+    setIsButtonDisabled(enteredNumber.trim() === '');
+  }, [enteredNumber]);
 
   const handleSubmit = () => {
     if (isPercentage) {
@@ -82,7 +88,7 @@ const SalaryScreen = (  ) => {
     } else {
 
       setSavedValueBudget( savedPrevBudget - enteredNumber)
-      
+
       setSavedPrevBudget( enteredNumber)
 
       setSavedValueSavings(salaryAmount-enteredNumber-savedPrevSavings)
@@ -151,8 +157,14 @@ const SalaryScreen = (  ) => {
           <Text style={[styles.percentageText, isPercentage ? styles.activeText : null]}>%</Text>
         </View>
 
-        <TouchableOpacity style={styles.submitPress} onPress={handleSubmit}>
-          <Text>Submit</Text>
+
+
+        <TouchableOpacity 
+        style={isButtonDisabled ? styles.submitPressDisabled : styles.submitPress}
+        onPress={handleSubmit}
+        disabled={isButtonDisabled}
+        >
+          <Text style={styles.submitText}>Submit</Text>
         </TouchableOpacity>
         
       </View>
@@ -314,6 +326,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 17,
     marginTop: 30
+  },
+  submitPressDisabled: {
+    backgroundColor: '#d3d3d3', // Gray when disabled
+    padding: 10,
+    borderRadius: 17,
+    marginTop: 30,
+  },
+  submitText: {
+    color: 'white',
+    textAlign: 'center',
   },
 });
 
