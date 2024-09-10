@@ -172,12 +172,19 @@ const SalaryScreen = (  ) => {
 
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        {/* Add icons for navigation */}
-        <View style={styles.navItem}></View>
-        <View style={styles.navItem}></View>
-        <View style={styles.navItem}></View>
-        <View style={styles.navItem}></View>
+      <View style={styles.footer}> 
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>ⓥ</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>➤ </Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>↯</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>⚙︎</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -217,8 +224,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
     borderRadius: 25,
     padding: 0, // Increased padding for a larger card
-    marginTop: -170,
-    marginBottom: 15, // Space between the card and toggle section
+    marginTop: -140,
+    marginBottom: -20, // Space between the card and toggle section
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 5, // Shadow for Android
@@ -235,7 +242,8 @@ const styles = StyleSheet.create({
     // backgroundColor: '#FFFFFF',
     paddingVertical: 20,
     borderTopLeftRadius: 25,
-    borderTopRightRadius: 25
+    borderTopRightRadius: 25,
+    
   },
   savingsBoxLower: {
     // flex: 1,
@@ -264,7 +272,8 @@ const styles = StyleSheet.create({
   salaryDate: {
     fontSize: 14,
     color: '#888',
-    marginBottom: 35
+    marginTop: 50,
+    marginBottom: 20
   },
   toggleSection: {
     flexDirection: 'row',
@@ -300,26 +309,20 @@ const styles = StyleSheet.create({
   activeText: {
     color: '#007BFF', // Active color (blue) when switched
   },
-  bottomNav: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 80,
-    backgroundColor: '#FFF',
+  
+  footer: {
+    alignItems:"center",
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
     borderTopWidth: 1,
-    borderTopColor: '#DDD',
+    borderTopColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: -30,
   },
-  navItem: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#E5F8F4',
-    justifyContent: 'center',
-    alignItems: 'center',
+  footerIcon: {
+    fontSize: 35,
   },
   submitPress: {
     backgroundColor: '#007BFF',
