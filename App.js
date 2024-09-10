@@ -2,6 +2,7 @@ import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Ionicons } from '@expo/vector-icons';
 import MainMenu from './screens/MainMenu';
 import Savings from './screens/Savings';
 import Budget from './screens/Budget';
@@ -22,9 +23,11 @@ export default function App() {
           <Stack.Navigator initialRouteName="MainMenu">
             <Stack.Screen name="MainMenu" component={MainMenu} options={{headerShown: false}}/>
             <Stack.Screen name="Savings" component={Savings} options={
-                {headerTitle: '', headerStyle:
+                {headerTitle: '', headerRight: () => (
+                  <Ionicons name="help-circle-outline" size={36} color="grey" />
+                ), headerStyle:
                 {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: true,
+                headerShadowVisible: false,
                 headerBackTitleVisible: true,
                 headerBackTitleStyle: {color: '#808080'},
                 headerBackTitle: 'Back',
@@ -32,41 +35,51 @@ export default function App() {
               }
                 }/>
             <Stack.Screen name="Budget" component={Budget} options={
-                {headerTitle: '', headerStyle:
+                {headerTitle: '', headerRight: () => (
+                  <Ionicons name="help-circle-outline" size={36} color="grey" />
+                ), headerStyle:
                 {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: true, 
+                headerShadowVisible: false, 
                 headerBackTitleVisible: true,
                 headerBackTitleStyle: {color: '#808080'},
                 headerBackTitle: 'Back',
                 headerTintColor: '#808080'}}/>
             <Stack.Screen name="SavingsJune" component={SavingsJune} options={
-                {headerTitle: '', headerStyle:
+                {headerTitle: '', headerRight: () => (
+                  <Ionicons name="help-circle-outline" size={36} color="grey" />
+                ), headerStyle:
                 {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: true, 
+                headerShadowVisible: false, 
                 headerBackTitleVisible: true,
                 headerBackTitleStyle: {color: '#808080'},
                 headerBackTitle: 'Back',
                 headerTintColor: '#808080'}}/>
             <Stack.Screen name="IncomeDynamic" component={IncomeDynamic} options={
-                {headerTitle: '', headerStyle:
+                {headerTitle: '', headerRight: () => (
+                  <Ionicons name="help-circle-outline" size={36} color="grey" />
+                ), headerStyle:
                 {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: true, 
+                headerShadowVisible: false, 
                 headerBackTitleVisible: true,
                 headerBackTitleStyle: {color: '#808080'},
                 headerBackTitle: 'Back',
                 headerTintColor: '#808080'}}/>
             <Stack.Screen name="DigitIncome" component={DigitIncome} options={
-                {headerTitle: '', headerStyle:
+                {headerTitle: '', headerRight: () => (
+                  <Ionicons name="help-circle-outline" size={36} color="grey" />
+                ), headerStyle:
                 {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: true, 
+                headerShadowVisible: false, 
                 headerBackTitleVisible: true,
                 headerBackTitleStyle: {color: '#808080'},
                 headerBackTitle: 'Back',
                 headerTintColor: '#808080'}}/>
             <Stack.Screen name="IncomeFixed" component={IncomeFixed} options={
-                {headerTitle: '', headerStyle:
+                {headerTitle: '', headerRight: () => (
+                  <Ionicons name="help-circle-outline" size={36} color="grey" />
+                ), headerStyle:
                 {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: true, 
+                headerShadowVisible: false, 
                 headerBackTitleVisible: true,
                 headerBackTitleStyle: {color: '#808080'},
                 headerBackTitle: 'Back',

@@ -92,6 +92,21 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
   const pan = useRef(new Animated.ValueXY()).current;
   const [draggedFarEnough, setDraggedFarEnough] = useState(false);
 
+  // Interpolation for smoother trailing effect
+  const boxTranslateX = pan.x.interpolate({
+    inputRange: [-325, 0],
+    outputRange: [-180, 0],  // Adjust the trailing effect to stay behind the triangle
+    extrapolate: 'clamp',
+  });
+
+  const boxOpacity = pan.x.interpolate({
+    inputRange: [-325, -30],
+    outputRange: [1, 0],  // Box becomes visible as you swipe
+    extrapolate: 'clamp',
+  });
+
+  
+
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
     onPanResponderGrant: () => {
@@ -100,27 +115,31 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
     onPanResponderMove: Animated.event([null, { dx: pan.x }], { useNativeDriver: false }),
     onPanResponderRelease: (e, gestureState) => {
       if (gestureState.dx < -30) {
-        setDraggedFarEnough(true);
+        setDraggedFarEnough(true);  // Set when triangle has been dragged far enough
 
         // Animate the triangle to the end of the box (left side)
         Animated.spring(pan, {
-          toValue: { x: -325, y: 0 },
+          toValue: { x: -325, y: 0 }, // Adjust x value based on box width
           useNativeDriver: false,
+          friction: 8,  // For smoothness
+          //tension: 40,
         }).start(() => {
-          moveItem({ id, label, date, amount, percentage, moneyicon }); // Move the item to the other list
-        });
+          moveItem({ id, label, date, amount, percentage, moneyicon });
 
-        // Hide the triangle and message after a delay
-        setTimeout(() => {
-          setDraggedFarEnough(false);
-          pan.setValue({ x: 0, y: 0 }); // Reset the triangle's position after it disappears
-        }, 1000);
+          // Hide the box and triangle after some time
+          setTimeout(() => {
+            setDraggedFarEnough(false);
+            pan.setValue({ x: 0, y: 0 }); // Reset the triangle's position after it disappears
+          }, 1000);
+        });
       } else {
         // Reset the triangle position if not dragged far enough
         setDraggedFarEnough(false);
         Animated.spring(pan, {
           toValue: { x: 0, y: 0 },
           useNativeDriver: false,
+          friction: 8, 
+          tension: 40,
         }).start();
       }
       pan.flattenOffset();
@@ -149,12 +168,21 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
         <View style={[styles.percentageTriangle, { borderTopColor: triangleColor }]} />
       </Animated.View>
 
-      {/* Optional "Move to Dynamic/Fixed" Message */}
+      {/* Only render the "Move to Fixed" box if dragged far enough */}
       {draggedFarEnough && (
-        <View style={[styles.moveToFixedBox, { backgroundColor: moveboxColor }]}>
-          <Text style={styles.moveToFixedText}>{moveboxText}</Text>
-        </View>
-      )}
+      <Animated.View
+      style={[
+      styles.moveToFixedBox,
+      {
+        backgroundColor: moveboxColor,
+        transform: [{ translateX: boxTranslateX }],
+        opacity: boxOpacity, // Animate opacity for smooth appearance
+      }
+    ]}
+  >
+    <Text style={styles.moveToFixedText}>{moveboxText}</Text>
+  </Animated.View>
+)}
     </View>
   );
 };
@@ -330,16 +358,17 @@ const styles = StyleSheet.create({
     top: 25,
   },
 
-  moveToFixedBox:{
-    position: "absolute",
-    right:0,
-    left: 10,
-    paddingHorizontal: 80,
-    paddingVertical:35,
-    backgroundColor: "#C8A3E1",
-    marginTop:15,
+  moveToFixedBox: {
+    position: 'absolute',
+    right: -200,
+    width: '100%', // Same width as the income item
+    paddingHorizontal: 15, // Match the padding of the income item
+    paddingVertical: 38, // Adjust vertical padding as needed
+    backgroundColor: '#C8A3E1',
+    marginTop: 15, // Adjust to align vertically with the triangle
+    borderRadius: 10, // Optional: to give the box rounded corners
+    opacity: 0, // Initially hidden, will be animated
   },
-
   moveToFixedText:{
     
     fontSize: 18,
