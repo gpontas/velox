@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useContext} from 'react';
-import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity } from 'react-native';
+import { useState, useContext, useEffect} from 'react';
+import { View, Text, StyleSheet, Switch, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { GlobalContext } from '../GlobalState';
 import {LinearGradient} from 'expo-linear-gradient';
 
@@ -10,9 +10,17 @@ const SalaryScreen = (  ) => {
 
   const [isPercentage, setIsPercentage] = useState(false);
 
-  const { savedValue, setSavedValue } = useContext(GlobalContext);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const salaryAmount = 1200;
+  const { savedValueBudget, setSavedValueBudget } = useContext(GlobalContext);
+
+  const { savedValueSavings, setSavedValueSavings } = useContext(GlobalContext);
+
+  const { salaryAmount, setSalaryAmount } = useContext(GlobalContext);
+
+  const {savedPrevBudget, setSavedPrevBudget} = useContext(GlobalContext);
+
+  const {savedPrevSavings, setSavedPrevSavings} = useContext(GlobalContext);
 
   const handleSwitch = (newValue) => {
     setIsPercentage(newValue);
@@ -57,23 +65,42 @@ const SalaryScreen = (  ) => {
     }
   }
   
+  useEffect(() => {
+    // Enable button only if enteredNumber is not empty
+    setIsButtonDisabled(enteredNumber.trim() === '');
+  }, [enteredNumber]);
 
   const handleSubmit = () => {
     if (isPercentage) {
       // Convert percentage input into value of salary
       const percentageValue = (parseFloat(enteredNumber) / 100) * salaryAmount;
-      setSavedValue(percentageValue);
-      console.log(`Saved Percentage Value: ${percentageValue} €`);
+      const percentageValueSavings = (parseFloat(100 - enteredNumber) / 100) * salaryAmount;
+
+      setSavedValueBudget((savedPrevBudget - percentageValue));
+      
+      setSavedPrevBudget(percentageValue);
+
+      setSavedValueSavings((percentageValueSavings - savedPrevSavings));
+      
+      setSavedPrevSavings(percentageValueSavings);
+
+      
     } else {
-      // Save the entered Euro value
-      setSavedValue(parseFloat(enteredNumber));
-      console.log(savedValue);
-      console.log(`Saved Euro Value: ${savedValue} €`);
+
+      setSavedValueBudget( savedPrevBudget - enteredNumber)
+
+      setSavedPrevBudget( enteredNumber)
+
+      setSavedValueSavings(salaryAmount-enteredNumber-savedPrevSavings)
+
+      setSavedPrevSavings(salaryAmount- enteredNumber)
+
     }
   };
   
 
   return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={styles.container}>
       {/* Header Section */}
       <LinearGradient 
@@ -106,7 +133,7 @@ const SalaryScreen = (  ) => {
               colors={['#13dbab', '#A6CF71']} // gradient colors for the bottom part
               style={styles.savingsBoxLower}
               >
-              <Text style={styles.salaryAmount}>+ {salaryAmount} €</Text>
+              <Text style={styles.salaryAmount}>+ 1.200 €</Text>
             </LinearGradient>
           </View>
         {/*Date of the salary*/}
@@ -131,8 +158,14 @@ const SalaryScreen = (  ) => {
           <Text style={[styles.percentageText, isPercentage ? styles.activeText : null]}>%</Text>
         </View>
 
-        <TouchableOpacity style={styles.submitPress} onPress={handleSubmit}>
-          <Text>Submit</Text>
+
+
+        <TouchableOpacity 
+        style={isButtonDisabled ? styles.submitPressDisabled : styles.submitPress}
+        onPress={handleSubmit}
+        disabled={isButtonDisabled}
+        >
+          <Text style={styles.submitText}>Submit</Text>
         </TouchableOpacity>
         
       </View>
@@ -148,6 +181,7 @@ const SalaryScreen = (  ) => {
         <View style={styles.navItem}></View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -294,6 +328,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 17,
     marginTop: 30
+  },
+  submitPressDisabled: {
+    backgroundColor: '#d3d3d3', // Gray when disabled
+    padding: 10,
+    borderRadius: 17,
+    marginTop: 30,
+  },
+  submitText: {
+    color: 'white',
+    textAlign: 'center',
   },
 });
 

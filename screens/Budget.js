@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import { GlobalContext } from '../GlobalState';
 
 export default function App( navigation) {
@@ -10,68 +10,88 @@ export default function App( navigation) {
 
   const {setInitBudget} = useContext(GlobalContext);
   
-  const { savedValue } = useContext(GlobalContext);
+  const { savedValueBudget } = useContext(GlobalContext);
 
-  const { setSavedValue } = useContext(GlobalContext);
+  const { setSavedValueBudget } = useContext(GlobalContext);
+
+  const {savedPrevBudget, setSavedPrevBudget} = useContext(GlobalContext);
 
   const [budget, setBudget] = useState(initBudget);
 
   useEffect(() => {
-    if (savedValue !== null && savedValue !== undefined) {
+    if (savedValueBudget !== null && savedValueBudget !== undefined) {
       // Use the previous budget value to apply the subtraction
-      setBudget(prevBudget => prevBudget - savedValue);
-      setInitBudget(prevBudget => prevBudget - savedValue);
-      setSavedValue(0);
+      setBudget(prevBudget => prevBudget - savedValueBudget);
+      setInitBudget(prevBudget => prevBudget - savedValueBudget);
+      setSavedValueBudget(0);
     }
-  }, [savedValue]);
+  }, [savedValueBudget]);
 
   const formattedBudget = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(budget);
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-      {/* Header Section */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>BUDGET</Text>
-        <View style={styles.balanceContainer}>
-          <Text style={styles.balance}>{formattedBudget}</Text>
+    <View style={{ flex: 1 }}> 
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        {/* Header Section */}
+        <View style={styles.header}>
+          <Text style={styles.headerText}>BUDGET</Text>
+          <View style={styles.balanceContainer}>
+            <Text style={styles.balance}>{formattedBudget}</Text>
+          </View>
         </View>
+  
+        {/* Categories Section */}
+        <Text style={styles.plusSign}>+</Text>
+        <View style={styles.categoriesContainer}>
+          <CategoryItem
+            label="Rent"
+            amount="700"
+            total="700"
+            backgroundColor="#FFF59D" // Light Yellow
+            borderColor="#FBC02D" // Darker Yellow
+          />
+          <CategoryItem
+            label="Food"
+            amount="224,68"
+            total="400"
+            backgroundColor="#C8E6C9" // Light Green
+            borderColor="#388E3C" // Darker Green
+          />
+          <CategoryItem
+            label="Shopping"
+            amount="554,90"
+            total="350"
+            backgroundColor="#FFCDD2" // Light Red
+            borderColor="#D32F2F" // Darker Red
+          />
+          <CategoryItem
+            label="Travel"
+            amount="86"
+            total="460"
+            backgroundColor="#C8E6C9" // Light Green
+            borderColor="#388E3C" // Darker Green
+          />
+        </View>
+      </ScrollView>
+  
+      {/* Footer Section */}
+      <View style={styles.footer}> 
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>ⓥ</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>➤</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>↯</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerIcon}>⚙︎</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Categories Section */}
-      <Text style={styles.plusSign}>+</Text>
-      <View style={styles.categoriesContainer}>
-        <CategoryItem
-          label="Rent"
-          amount="700"
-          total="700"
-          backgroundColor="#FFF59D" // Light Yellow
-          borderColor="#FBC02D" // Darker Yellow
-        />
-        <CategoryItem
-          label="Food"
-          amount="224,68"
-          total="400"
-          backgroundColor="#C8E6C9" // Light Green
-          borderColor="#388E3C" // Darker Green
-        />
-        <CategoryItem
-          label="Shopping"
-          amount="554,90"
-          total="350"
-          backgroundColor="#FFCDD2" // Light Red
-          borderColor="#D32F2F" // Darker Red
-        />
-        <CategoryItem
-          label="Travel"
-          amount="86"
-          total="460"
-          backgroundColor="#C8E6C9" // Light Green
-          borderColor="#388E3C" // Darker Green
-        />
-      </View>
-    </ScrollView>
+    </View>
   );
-}
+}  
 
 const CategoryItem = ({ label, amount, total, backgroundColor, borderColor }) => (
   <View style={[styles.categoryItem, { backgroundColor, borderColor }]}>
@@ -145,6 +165,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'right',
     fontWeight: 'bold',
+  },
+  footer: {
+    alignItems:"center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: -30,
+  },
+  footerIcon: {
+    fontSize: 35,
   },
 });
 

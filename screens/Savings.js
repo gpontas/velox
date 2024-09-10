@@ -17,9 +17,11 @@ function Savings({ navigation }) {
 
   const {setInitSavings} = useContext(GlobalContext);
 
-  const { savedValue } = useContext(GlobalContext);
+  const { savedValueSavings } = useContext(GlobalContext);
 
-  const { setSavedValue } = useContext(GlobalContext);
+  const { setSavedValueSavings } = useContext(GlobalContext);
+
+  const { savedPrevSavings, setSavedPrevSavings } = useContext(GlobalContext);
 
   const [savings, setSavings] = useState(initSavings);
   
@@ -37,13 +39,13 @@ function Savings({ navigation }) {
   }
 
   useEffect(() => {
-    if (savedValue !== null && savedValue !== undefined) {
+    if (savedValueSavings !== null && savedValueSavings !== undefined) {
       // Use the previous budget value to apply the subtraction
-      setSavings(prevBudget => prevBudget + savedValue);
-      setInitSavings(prevBudget => prevBudget + savedValue);
-      setSavedValue(0);
+      setSavings(prevBudget => prevBudget + savedValueSavings);
+      setInitSavings(prevBudget => prevBudget + savedValueSavings);
+      setSavedValueSavings(0);
     }
-  }, [savedValue]);
+  }, [savedValueSavings]);
 
   const formattedSavings = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(savings);
 
@@ -120,18 +122,18 @@ function Savings({ navigation }) {
 
 
 
-      <View style={styles.footer}>
+      <View style={styles.footer}> 
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>🏦</Text>
+          <Text style={styles.footerIcon}>ⓥ</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>✈️</Text>
+          <Text style={styles.footerIcon}>➤ </Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>📊</Text>
+          <Text style={styles.footerIcon}>↯</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.footerIcon}>⚙️</Text>
+          <Text style={styles.footerIcon}>⚙︎</Text>
         </TouchableOpacity>
       </View>
 
@@ -278,5 +280,19 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  footer: {
+    alignItems:"center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: -30,
+  },
+  footerIcon: {
+    fontSize: 35,
   },
 });
