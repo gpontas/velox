@@ -8,11 +8,9 @@ function MainMenu({ navigation }) {
       <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
         <TouchableOpacity style={styles.menuIcon}>
-          {/* Menu icon */}
           <Text style={styles.iconText}>≡</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.profileIcon}>
-          {/* Profile icon */}
           <Text style={styles.iconText}>⌂</Text>
         </TouchableOpacity>
       </View>
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F8F8',
-    paddingTop: STATUSBAR_HEIGHT,  // Adding padding to avoid overlapping with status bar
+    paddingTop: STATUSBAR_HEIGHT,  
     justifyContent: 'space-between',
   },
   header: {
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   profileIcon: {
-    // Additional styling if needed
+    //flex: 1,
   },
   iconText: {
     fontSize: 40,
@@ -134,16 +132,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     
     marginTop: 120,
-    borderWidth: 5, // Border to match the design
-    borderColor: '#9C27B0', // Light purple color
-    borderRadius: 10, // Rounded corners
-    paddingVertical: 10, // Vertical padding for touchable area
-    paddingHorizontal: 20, // Horizontal padding for touchable area
-    marginVertical: 20, // Adds some space between this and other elements
-    alignSelf: 'center', // Align center in parent container
+    borderWidth: 5, 
+    borderColor: '#9C27B0', 
+    borderRadius: 10,
+    paddingVertical: 10, 
+    paddingHorizontal: 20, 
+    marginVertical: 20, 
+    alignSelf: 'center',
   },
   recentlyViewedText: {
-    color: '#9C27B0', // Purple text color
+    color: '#9C27B0', 
     fontSize: 16,
     fontWeight: 'bold',
   }

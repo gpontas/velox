@@ -13,7 +13,6 @@ const IncomeScreen = ({ navigation }) => {
   console.log(valueBudget);  
 
 
-  // State for Fixed and Dynamic incomes
   const [fixedIncome, setFixedIncome] = useState([
     { id: 1, label: "Salary", date: "Sun 09.06.2024", amount: "+ € " + salaryAmount, percentage: valueBudget , moneyicon: "%" },
     { id: 2, label: "Tenant from Rome", date: "Fri 07.06.2024", amount: "+ € 750", percentage: "500", moneyicon: "€" },
@@ -39,23 +38,19 @@ const IncomeScreen = ({ navigation }) => {
   const moveboxColor = selectedTab === 'Fixed' ? '#C8A3E1' : '#A6E1D9';
   const moveboxText = selectedTab === 'Fixed' ? 'Move to Dynamic' : 'Move to Fixed';
 
- // Function to move an income from Fixed to Dynamic
 const moveToDynamic = (income) => {
   setFixedIncome((prevFixed) => prevFixed.filter((item) => item.id !== income.id));
-  setDynamicIncome((prevDynamic) => [income, ...prevDynamic]); // Add to the beginning of the list
+  setDynamicIncome((prevDynamic) => [income, ...prevDynamic]);
 };
 
-// Function to move an income from Dynamic to Fixed
 const moveToFixed = (income) => {
   setDynamicIncome((prevDynamic) => prevDynamic.filter((item) => item.id !== income.id));
-  setFixedIncome((prevFixed) => [income, ...prevFixed]); // Add to the beginning of the list
+  setFixedIncome((prevFixed) => [income, ...prevFixed]); 
 };
 
 
 return (
   <View style={styles.container}>
-    {/* Header Section */}
-    {/* Gradient Header using expo-linear-gradient */}
     <LinearGradient
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
@@ -79,7 +74,6 @@ return (
       </View>
     </LinearGradient>
 
-    {/* Render Income List based on selected tab */}
     {selectedTab === 'Fixed' ? (
       <ScrollView contentContainerStyle={styles.incomeContainer}>
         {fixedIncome.map((income) => (
@@ -89,7 +83,7 @@ return (
             triangleColor={triangleColor}
             moveboxColor={moveboxColor}
             moveboxText={moveboxText}
-            moveItem={moveToDynamic} // Move to Dynamic
+            moveItem={moveToDynamic} 
             navigation={navigation}
           />
         ))}
@@ -103,14 +97,13 @@ return (
             triangleColor={triangleColor}
             moveboxColor={moveboxColor}
             moveboxText={moveboxText}
-            moveItem={moveToFixed} // Move to Fixed
+            moveItem={moveToFixed} 
             navigation={navigation}
           />
         ))}
       </ScrollView>
     )}
 
-    {/* Footer Section */}
     <View style={styles.footer}>
       <TouchableOpacity onPress={()=>navigation.navigate('MainMenu')}>
         <Text style={styles.footerIcon}>ⓥ</Text>
@@ -131,20 +124,18 @@ return (
 };
 
 const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, triangleColor, moveboxColor, moveboxText, moveItem, id }) => {
-  // State to handle triangle drag
   const pan = useRef(new Animated.ValueXY()).current;
   const [draggedFarEnough, setDraggedFarEnough] = useState(false);
 
-  // Interpolation for smoother trailing effect
   const boxTranslateX = pan.x.interpolate({
     inputRange: [-325, 0],
-    outputRange: [-180, 0],  // Adjust the trailing effect to stay behind the triangle
+    outputRange: [-180, 0],  
     extrapolate: 'clamp',
   });
 
   const boxOpacity = pan.x.interpolate({
     inputRange: [-325, -30],
-    outputRange: [1, 0],  // Box becomes visible as you swipe
+    outputRange: [1, 0],  
     extrapolate: 'clamp',
   });
 
@@ -158,25 +149,22 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
     onPanResponderMove: Animated.event([null, { dx: pan.x }], { useNativeDriver: false }),
     onPanResponderRelease: (e, gestureState) => {
       if (gestureState.dx < -30) {
-        setDraggedFarEnough(true);  // Set when triangle has been dragged far enough
+        setDraggedFarEnough(true);  
 
-        // Animate the triangle to the end of the box (left side)
         Animated.spring(pan, {
-          toValue: { x: -325, y: 0 }, // Adjust x value based on box width
+          toValue: { x: -325, y: 0 }, 
           useNativeDriver: false,
-          friction: 8,  // For smoothness
+          friction: 8,  
           //tension: 40,
         }).start(() => {
           moveItem({ id, label, date, amount, percentage, moneyicon });
 
-          // Hide the box and triangle after some time
           setTimeout(() => {
             setDraggedFarEnough(false);
-            pan.setValue({ x: 0, y: 0 }); // Reset the triangle's position after it disappears
+            pan.setValue({ x: 0, y: 0 }); 
           }, 1000);
         });
       } else {
-        // Reset the triangle position if not dragged far enough
         setDraggedFarEnough(false);
         Animated.spring(pan, {
           toValue: { x: 0, y: 0 },
@@ -191,7 +179,6 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
 
   return (
     <View style={styles.box}>
-      {/* TouchableOpacity for the income details and navigation */}
       <TouchableOpacity onPress={() => navigation.navigate("DigitIncome")} style={styles.incomeItem}>
         <View style={styles.incomeDetails}>
           <Text style={styles.incomeLabel}>{label}</Text>
@@ -206,12 +193,10 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
         </View>
       </TouchableOpacity>
 
-      {/* Draggable Triangle */}
       <Animated.View {...panResponder.panHandlers} style={[styles.triangleContainer, { transform: [{ translateX: pan.x }] }]}>
         <View style={[styles.percentageTriangle, { borderTopColor: triangleColor }]} />
       </Animated.View>
 
-      {/* Only render the "Move to Fixed" box if dragged far enough */}
       {draggedFarEnough && (
       <Animated.View
       style={[
@@ -219,7 +204,7 @@ const IncomeItem = ({ label, date, amount, percentage, moneyicon, navigation, tr
       {
         backgroundColor: moveboxColor,
         transform: [{ translateX: boxTranslateX }],
-        opacity: boxOpacity, // Animate opacity for smooth appearance
+        opacity: boxOpacity, 
       }
     ]}
   >
@@ -325,7 +310,7 @@ const styles = StyleSheet.create({
   },
   incomeContainer: {
     paddingHorizontal: 20,
-    paddingBottom: 100, // for spacing above the bottom navigation
+    paddingBottom: 100, 
 
   },
   incomeItem: {
@@ -368,12 +353,12 @@ const styles = StyleSheet.create({
   },
   incomeStats: {
     alignItems: 'center',
-    marginRight: 50, // Space between text and the triangle
+    marginRight: 50,
   },
   incomePercentage: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#A673D4', // Purple color for the percentage
+    color: '#A673D4', 
   },
   incomeBudgetText: {
     fontSize: 12,
@@ -393,9 +378,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderTopColor: '#C8A3E1', // Light purple for the triangle
-    transform: [{ rotateZ: '90deg' }], // Flip vertically
-    marginLeft: -15, // Shift the triangle slightly to overlap the card
+    borderTopColor: '#C8A3E1', 
+    transform: [{ rotateZ: '90deg' }], 
+    marginLeft: -15, 
     
     
     
@@ -403,21 +388,21 @@ const styles = StyleSheet.create({
 
   triangleContainer: {
     position: 'absolute',
-    top: 0, // Adjust this to position the triangle vertically inside the income box
-    right:3 , // Position it to the right side of the box
+    top: 0,
+    right:3 , 
     top: 25,
   },
 
   moveToFixedBox: {
     position: 'absolute',
     right: -200,
-    width: '100%', // Same width as the income item
-    paddingHorizontal: 15, // Match the padding of the income item
-    paddingVertical: 38, // Adjust vertical padding as needed
+    width: '100%', 
+    paddingHorizontal: 15, 
+    paddingVertical: 38, 
     backgroundColor: '#C8A3E1',
-    marginTop: 15, // Adjust to align vertically with the triangle
-    borderRadius: 10, // Optional: to give the box rounded corners
-    opacity: 0, // Initially hidden, will be animated
+    marginTop: 15,
+    borderRadius: 10, 
+    opacity: 0, 
   },
   moveToFixedText:{
     

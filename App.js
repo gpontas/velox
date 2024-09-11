@@ -7,7 +7,6 @@ import MainMenu from './screens/MainMenu';
 import Savings from './screens/Savings';
 import Budget from './screens/Budget';
 import SavingsJune from './screens/SavingsJune';
-import IncomeDynamic from './screens/IncomeDynamic';
 import DigitIncome from './screens/DigitIncome';
 import IncomeFixed from './screens/IncomeFixed';
 import { GlobalProvider } from './GlobalState';
@@ -45,16 +44,6 @@ export default function App() {
                 headerBackTitle: 'Back',
                 headerTintColor: '#808080'}}/>
             <Stack.Screen name="SavingsJune" component={SavingsJune} options={
-                {headerTitle: '', headerRight: () => (
-                  <Ionicons name="help-circle-outline" size={36} color="grey" />
-                ), headerStyle:
-                {backgroundColor:'#F8F8F8'},
-                headerShadowVisible: false, 
-                headerBackTitleVisible: true,
-                headerBackTitleStyle: {color: '#808080'},
-                headerBackTitle: 'Back',
-                headerTintColor: '#808080'}}/>
-            <Stack.Screen name="IncomeDynamic" component={IncomeDynamic} options={
                 {headerTitle: '', headerRight: () => (
                   <Ionicons name="help-circle-outline" size={36} color="grey" />
                 ), headerStyle:

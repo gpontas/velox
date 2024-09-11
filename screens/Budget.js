@@ -19,7 +19,6 @@ export default function App({navigation}) {
   return (
     <View style={{ flex: 1 }}> 
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {/* Header Section */}
         <View style={styles.header}>
           <Text style={styles.headerText}>BUDGET</Text>
           <View style={styles.balanceContainer}>
@@ -27,7 +26,6 @@ export default function App({navigation}) {
           </View>
         </View>
   
-        {/* Categories Section */}
         <Text style={styles.categoryText}>CATEGORIES</Text>
         <Text style={styles.plusSign}>+</Text>
         <View style={styles.categoriesContainer}>
@@ -92,14 +90,12 @@ const CategoryItem = ({ label, currentAmount, initialTotal }) => {
     }
   };
 
-  // Set initial colors based on current amount and total
   useEffect(() => {
     const numericTotal = parseFloat(initialTotal);
     const numericCurrentAmount = parseFloat(currentAmount);
     updateBoxAndBorderColor(numericTotal, numericCurrentAmount);
   }, [currentAmount, initialTotal]);
 
-  // Handle text input change and update colors
   const handleTotalChange = (newTotal) => {
     setTotal(newTotal);
     const numericTotal = parseFloat(newTotal);
@@ -215,21 +211,21 @@ const styles = StyleSheet.create({
   },
   categoryTotal: {
     fontSize: 16,
-    textAlign: 'center', // Center the text
+    textAlign: 'center', 
     fontWeight: 'bold',
-    paddingVertical: 6,  // Adds padding to make it look like a button
-    paddingHorizontal: 10, // Horizontal padding for button-like feel
-    margin: 0, // No margin
-    width: 60, // Adjust width to fit digits
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // White background to contrast
-    borderWidth: 1, // Adds a border to create the button effect
-    borderColor: '#ccc', // Light border color
-    borderRadius: 5, // Rounded corners for button effect
-    shadowColor: '#000', // Optional: Add shadow to make it pop
+    paddingVertical: 6,  
+    paddingHorizontal: 10, 
+    margin: 0, 
+    width: 60, 
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
+    borderRadius: 5, 
+    shadowColor: '#000', 
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 2, // Elevation for Android shadow
+    elevation: 2, 
     
   },
   

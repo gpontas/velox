@@ -2,20 +2,17 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const { height: screenHeight } = Dimensions.get('window'); // Get the height of the screen
+const { height: screenHeight } = Dimensions.get('window'); 
 
 const SavingsScreen = (navigation) => {
   return (
       <View style={styles.container}>
-        {/* Header Section - Not part of ScrollView */}
         <View style={styles.header}>
           <Text style={styles.headerText}>SAVINGS</Text>
           <Text style={styles.moneyEmoji}>⛃</Text>
         </View>
 
-        {/* Savings Box - Not part of ScrollView */}
         <View style={styles.savingsBox}>
-          {/* Upper part with gradient white and the month */}
           <LinearGradient
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
@@ -25,7 +22,6 @@ const SavingsScreen = (navigation) => {
             <Text style={styles.month}>June 2024</Text>
           </LinearGradient>
 
-          {/* Lower part with gradient green */}
           <LinearGradient
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
@@ -36,12 +32,10 @@ const SavingsScreen = (navigation) => {
           </LinearGradient>
         </View>
 
-        {/* Last Transactions Section - Not part of ScrollView */}
         <View style={styles.transactionsHeader}>
           <Text style={styles.transactionsTitle}>LAST TRANSACTIONS</Text>
         </View>
 
-        {/* ScrollView only for Transactions List */}
         <ScrollView style={styles.transactionsContainer}>
           <TransactionItem
             label="from Salary"
@@ -100,12 +94,12 @@ const TransactionItem = ({ label, date, amount }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8', // Light background color
+    backgroundColor: '#F8F8F8', 
   },
   scrollViewContainer: {
-    minHeight: screenHeight, // Ensure the scroll view content takes up at least the full screen height
-    justifyContent: 'center', // Center content vertically
-    alignItems: 'center', // Center content horizontally
+    minHeight: screenHeight, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
   header: {
     flexDirection: 'row',
@@ -137,11 +131,10 @@ const styles = StyleSheet.create({
     // alignSelf: 'center',
     borderRadius: 25,
     padding: 0,
-    // overflow: 'hidden', // Ensure content stays inside the border radius
     marginBottom: 20,
     alignSelf: "center",
     alignItems: 'center',
-    backgroundColor: '#F8F8F8', // Light green background for savings box
+    backgroundColor: '#F8F8F8', 
     shadowColor: '#000',
     shadowOffset: { width: 5, height: 8 },
     shadowOpacity: 0.3,
@@ -163,7 +156,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#4caf50', // Green background for the savings amount
     paddingVertical: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
@@ -178,7 +170,7 @@ const styles = StyleSheet.create({
   savingsAmount: {
     fontSize: 27,
     fontWeight: 'bold',
-    color: '#fff', // Green color for the amount
+    color: '#fff', 
   },
   transactionsHeader: {
     alignItems: 'center',

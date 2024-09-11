@@ -34,13 +34,12 @@ function Savings({ navigation }) {
   };
 
   const selectYear = (year) => {
-    setSelectedYear(year); // Update the selected year
-    setDropdownVisible(false); // Hide the dropdown after selection
+    setSelectedYear(year); 
+    setDropdownVisible(false);
   }
 
   useEffect(() => {
     if (savedValueSavings !== null && savedValueSavings !== undefined) {
-      // Use the previous budget value to apply the subtraction
       setSavings(prevBudget => prevBudget + savedValueSavings);
       setInitSavings(prevBudget => prevBudget + savedValueSavings);
       setSavedValueSavings(0);
@@ -86,14 +85,14 @@ function Savings({ navigation }) {
   <FlatList 
     data={months}
     keyExtractor={(item, index) => index.toString()}
-    numColumns={1}  // Single column
+    numColumns={1}  
     renderItem={({ item, index}) => (
       item === 'June' ? (
         <TouchableOpacity 
           onPress={() => navigation.navigate('SavingsJune')}  
           style={[
             styles.boxMonths, 
-            { backgroundColor: '#CEFFD9' }  // Apply lightgreen background for June
+            { backgroundColor: '#CEFFD9' }  
           ]}
         >
           <Text style={styles.textMonths}>
@@ -108,7 +107,7 @@ function Savings({ navigation }) {
         <View 
           style={[
             styles.boxMonths, 
-            { backgroundColor: item === 'May' ? '#FFC9C9' : '#CEFFD9' }  // Apply lightblue for May, lightgray for others
+            { backgroundColor: item === 'May' ? '#FFC9C9' : '#CEFFD9' }  
           ]}
         >
           <Text style={styles.textMonths}>
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
-  box: {  // Dropdown box
+  box: {  
     marginLeft: 30,
     width: 200,
     padding: 15,
@@ -214,7 +213,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
 
-    // Elevation for Android
     elevation: 5,
   },
   boxText: {
@@ -224,7 +222,8 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     position: 'absolute',
-    top: 118,
+    top: 200,
+    marginLeft: 30,
     width: 200,
     marginTop: 10,
     backgroundColor: '#fff',

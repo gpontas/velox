@@ -28,39 +28,35 @@ const SalaryScreen = ( {navigation} ) => {
     setIsPercentage(newValue);
   
     if (newValue) {
-      // Switching to percentage mode, cap the input at 100%
       let numericValue = parseFloat(enteredNumber);
       if (!isNaN(numericValue) && numericValue > 100) {
-        setEnteredNumber('100');  // Cap the percentage at 100
+        setEnteredNumber('100'); 
       }
     }
   };
 
   function numberInputHandler(inputText) {
     if (isPercentage) {
-      // For percentage input, ensure the value is between 0 and 100
       let numericValue = parseFloat(inputText);
   
       if (isNaN(numericValue)) {
-        setEnteredNumber('');  // Clear input if not a valid number
+        setEnteredNumber('');  
       } else if (numericValue <= 100) {
         setEnteredNumber(inputText);
       } else {
-        setEnteredNumber('100');  // Cap the percentage at 100
+        setEnteredNumber('100');  
       }
     } else {
-      // For Euro input, allow only numbers and restrict to 2 decimal places
-      const formattedValue = inputText.replace(/[^0-9.]/g, ''); // Allow only numbers and dot
+      const formattedValue = inputText.replace(/[^0-9.]/g, ''); 
       const decimalCheck = formattedValue.split('.');
   
       if (decimalCheck.length > 1 && decimalCheck[1].length > 2) {
-        return; // Prevent input with more than 2 decimal places
+        return; 
       }
   
-      // Cap the value to the salary amount
       let numericValue = parseFloat(formattedValue);
       if (!isNaN(numericValue) && numericValue > salaryAmount) {
-        setEnteredNumber(salaryAmount.toString()); // Cap at the salary amount
+        setEnteredNumber(salaryAmount.toString()); 
       } else {
         setEnteredNumber(formattedValue);
       }
@@ -68,13 +64,11 @@ const SalaryScreen = ( {navigation} ) => {
   }
   
   useEffect(() => {
-    // Enable button only if enteredNumber is not empty
     setIsButtonDisabled(enteredNumber.trim() === '');
   }, [enteredNumber]);
 
   const handleSubmit = () => {
     if (isPercentage) {
-      // Convert percentage input into value of salary
       const percentageValue = (parseFloat(enteredNumber) / 100) * salaryAmount;
       const percentageValueSavings = (parseFloat(100 - enteredNumber) / 100) * salaryAmount;
 
@@ -109,7 +103,6 @@ const SalaryScreen = ( {navigation} ) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={styles.container}>
-      {/* Header Section */}
       <LinearGradient 
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
@@ -118,12 +111,9 @@ const SalaryScreen = ( {navigation} ) => {
         <Text style={styles.headerTitle}>INCOME</Text>
       </LinearGradient>
 
-      {/* Main Content */}
       <View style={styles.content}>
-        {/* Salary Card */}
         <View style={styles.salaryCard}>
           <LinearGradient
-              // gradient goes from left which is white to right which is light pink
               start={{ x: 0, y: 0.5 }}
               end={{ x: 1, y: 0.5 }}
               colors={['#eceaea', '#fce4ec']}
@@ -132,21 +122,17 @@ const SalaryScreen = ( {navigation} ) => {
               <Text style={styles.salaryLabel}>Salary</Text>
             </LinearGradient>
 
-            {/* Lower part with gradient green */}
             <LinearGradient
-              // gradient goes from left which is light green to right which is even lighter green
               start={{ x: 0, y: 0.5 }}
               end={{ x: 1, y: 0.5 }}
-              colors={['#13dbab', '#A6CF71']} // gradient colors for the bottom part
+              colors={['#13dbab', '#A6CF71']} 
               style={styles.savingsBoxLower}
               >
               <Text style={styles.salaryAmount}>+ 1.200 €</Text>
             </LinearGradient>
           </View>
-        {/*Date of the salary*/}
         <Text style={styles.salaryDate}>Sun 09.06.2024</Text>
 
-        {/* Toggle Section */}
         <View style={styles.toggleSection}>
           <TextInput
           style={styles.amountText} 
@@ -211,9 +197,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
   },
   header: {
-    backgroundColor: '#A6E1D9', // Green gradient background
-    paddingTop: 50, // Increased padding for more height
-    paddingBottom: 40, // Increase bottom padding for a larger header
+    backgroundColor: '#A6E1D9',
+    paddingTop: 50,
+    paddingBottom: 40, 
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -231,20 +217,20 @@ const styles = StyleSheet.create({
   
   content: {
     flex: 1,
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center',     // Center horizontally
+    justifyContent: 'center', 
+    alignItems: 'center',    
   },
   salaryCard: {
     width: '87%',
     backgroundColor: '#F8F8F8',
     borderRadius: 25,
-    padding: 0, // Increased padding for a larger card
+    padding: 0, 
     marginTop: -140,
-    marginBottom: -20, // Space between the card and toggle section
+    marginBottom: -20, 
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 5, // Shadow for Android
-    shadowColor: '#000', // Shadow for iOS
+    elevation: 5,
+    shadowColor: '#000', 
     shadowOffset: { width: 5, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
@@ -254,7 +240,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#FFFFFF',
+  
     paddingVertical: 20,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -265,7 +251,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#4caf50', // Green background for the savings amount
+    
     paddingVertical: 20,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25
@@ -278,9 +264,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   salaryAmount: {
-    fontSize: 33, // Increased font size for the amount
+    fontSize: 33, 
     fontWeight: 'bold',
-    color: '#fff', // Green for positive amount
+    color: '#fff', 
     marginBottom: 10,
     paddingTop: 10
   },
@@ -294,7 +280,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20, // Reduced margin to fix toggle positioning
+    marginTop: 20, 
   },
   amountText: {
     width: 100,
@@ -322,7 +308,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   activeText: {
-    color: '#007BFF', // Active color (blue) when switched
+    color: '#007BFF', 
   },
   
   footer: {
@@ -346,7 +332,7 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   submitPressDisabled: {
-    backgroundColor: '#d3d3d3', // Gray when disabled
+    backgroundColor: '#d3d3d3', 
     padding: 10,
     borderRadius: 17,
     marginTop: 30,
